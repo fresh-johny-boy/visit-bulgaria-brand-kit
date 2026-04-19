@@ -22,6 +22,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent       # …/brand-kit/
 ICONS = REPO / "icons"
 SOUNDS = REPO / "sounds"
+SCREENS = REPO / "screenshots"
 OUT = REPO / "downloads"
 
 
@@ -108,6 +109,12 @@ def main() -> None:
         roots=[(SOUNDS, "sounds")],
     )
 
+    # Screenshots only
+    make_zip(
+        OUT / "visit-bulgaria-screenshots.zip",
+        roots=[(SCREENS, "screenshots")],
+    )
+
     # Everything
     make_zip(
         OUT / "visit-bulgaria-brand-kit.zip",
@@ -118,6 +125,7 @@ def main() -> None:
             (ICONS / "web", "icons/web"),
             (ICONS / "preview", "icons/preview"),
             (SOUNDS, "sounds"),
+            (SCREENS, "screenshots"),
         ],
         extra=[
             (ICONS / "README.md", "icons/README.md"),

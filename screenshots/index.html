@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Visit Bulgaria — App Store Screenshots</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Seven native-3× marketing screens for Visit Bulgaria, composed into App Store + Play Store slides via a Next.js generator. Native 1179×2556 PNGs, pixel-accurate exports at every store size.">
+<link rel="icon" href="../icons/web/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/web/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/web/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/web/apple-touch-icon.png">
+<meta name="theme-color" content="#004F46">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   Design tokens — brand-aligned (mirrors icons/index.html)
+   ------------------------------------------------------------------ */
+:root{
+  --teal:#004F46;
+  --teal-dark:#003832;
+  --teal-ui:#00BBA7;
+  --cream:#F7EFE1;
+  --cream-hi:#FDF7EB;
+
+  --ink:#0E1916;
+  --ink-2:#2B3A35;
+  --muted:#6B7772;
+  --muted-2:#93A19A;
+  --line:rgba(20,32,29,.08);
+  --line-strong:rgba(20,32,29,.16);
+  --panel:#ffffff;
+  --panel-2:#FAF9F4;
+
+  --ok:#1F7A4D;
+  --warn:#B4660E;
+
+  --radius-card:18px;
+  --radius-phone:10% / 5%;
+
+  --shadow-sm:0 1px 0 rgba(20,32,29,.03), 0 2px 8px -4px rgba(20,32,29,.08);
+  --shadow-md:0 10px 30px -18px rgba(20,32,29,.30);
+  --shadow-phone:0 28px 56px -24px rgba(0,0,0,.45), 0 4px 8px rgba(0,0,0,.10);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{
+  font-family:'Montserrat',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  font-feature-settings:"ss01","cv11";
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #eef3f1 0%, transparent 60%),
+    radial-gradient(900px 600px at 110% 10%, #f6efe2 0%, transparent 55%),
+    #fafaf7;
+  color:var(--ink);
+  min-height:100vh;line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+
+/* ------------------------------------------------------------------
+   Shell — sticky TOC + main column (same as icons page)
+   ------------------------------------------------------------------ */
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);max-width:1400px;margin:0 auto;gap:0}
+aside.toc{
+  position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  padding:32px 16px 32px 32px;border-right:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,0));
+}
+.toc .brand{
+  display:flex;align-items:center;gap:10px;margin-bottom:24px;
+  font-weight:700;font-size:13px;letter-spacing:.02em;line-height:1.25;
+}
+.toc .brand .logo{
+  width:32px;height:32px;border-radius:8px;display:block;flex-shrink:0;
+  box-shadow:0 4px 10px -4px rgba(0,79,70,.4), 0 0 0 1px rgba(0,79,70,.1);
+}
+.toc ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px}
+.toc a{
+  display:block;padding:6px 10px;border-radius:8px;
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;
+  transition:background .15s ease,color .15s ease;
+}
+.toc a:hover{background:rgba(0,79,70,.06);color:var(--ink)}
+.toc .label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin:14px 10px 4px;font-weight:700}
+
+main.content{padding:40px 48px 80px;min-width:0}
+
+header.hero{padding:20px 0 24px;border-bottom:1px solid var(--line);margin-bottom:40px}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin:0 0 10px}
+h1{font-size:clamp(28px,3.6vw,44px);font-weight:800;margin:0 0 10px;letter-spacing:-.02em;line-height:1.1}
+header.hero p.lede{margin:0;color:var(--ink-2);max-width:720px;font-size:15px}
+header.hero p.lede code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;background:#f7f6f1;color:var(--ink-2);padding:1px 6px;border-radius:4px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.swatch{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;
+  background:#fff;border:1px solid var(--line);font-size:12px;font-weight:500;color:var(--ink-2);
+}
+.swatch .dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
+.swatch code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:var(--muted)}
+
+section{margin:56px 0 0;scroll-margin-top:24px}
+section:first-of-type{margin-top:0}
+h2{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+h3{font-size:22px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;line-height:1.25}
+section > p.desc{margin:0 0 24px;color:var(--ink-2);max-width:720px;font-size:14px}
+
+/* ------------------------------------------------------------------
+   Cards + grids
+   ------------------------------------------------------------------ */
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);
+  padding:20px;box-shadow:var(--shadow-sm);
+}
+.card .title{font-size:14px;font-weight:600;margin:0 0 2px}
+.card .label{font-size:12px;color:var(--muted);margin:0}
+.card .path{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:var(--muted);margin:0}
+
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* ------------------------------------------------------------------
+   Phone-screen cards
+   ------------------------------------------------------------------ */
+.screen-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:1100px){.screen-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.screen-grid{grid-template-columns:1fr}}
+
+.screen{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;
+  overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;
+}
+.screen:hover{transform:translateY(-3px);box-shadow:0 18px 36px -18px rgba(20,32,29,.22)}
+.screen .stage{
+  background:
+    radial-gradient(800px 300px at 50% 0%, rgba(0,79,70,.12), transparent 60%),
+    linear-gradient(180deg, #f3efe4 0%, #e9e4d6 100%);
+  padding:28px 28px 0;display:flex;justify-content:center;align-items:flex-end;
+  aspect-ratio: 9/16;
+  overflow:hidden;
+}
+.screen.dark .stage{
+  background:
+    radial-gradient(600px 300px at 50% 0%, rgba(0,187,167,.14), transparent 65%),
+    linear-gradient(180deg, #0e2420 0%, #03100e 100%);
+}
+.screen .stage img{
+  width:78%;display:block;
+  border-radius:14% / 6%;
+  box-shadow:var(--shadow-phone);
+  transform:translateY(8%);
+}
+.screen .meta-row{
+  padding:18px 22px 20px;display:flex;flex-direction:column;gap:10px;
+}
+.screen .num{
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:.1em;color:var(--teal);text-transform:uppercase;
+}
+.screen .name{font-size:16px;font-weight:700;margin:0;letter-spacing:-.005em;color:var(--ink)}
+.screen .desc-small{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.screen .foot{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding-top:6px;border-top:1px solid var(--line);
+}
+.screen .foot code{
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:var(--muted);
+}
+.screen .foot a{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;
+  background:var(--teal);color:#fff;font-size:11.5px;font-weight:600;
+  text-decoration:none;transition:background .15s,transform .12s;
+}
+.screen .foot a:hover{background:var(--teal-ui);transform:translateY(-1px)}
+.screen .foot a svg{width:12px;height:12px}
+
+/* ------------------------------------------------------------------
+   Size / export table
+   ------------------------------------------------------------------ */
+.sizes{
+  background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.sizes table{width:100%;border-collapse:collapse;font-size:13px}
+.sizes thead th{
+  text-align:left;padding:12px 18px;font-weight:700;color:var(--muted);
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:#fafaf5;border-bottom:1px solid var(--line);
+}
+.sizes tbody td{padding:14px 18px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:middle}
+.sizes tbody tr:last-child td{border-bottom:0}
+.sizes td.plat{font-weight:600;color:var(--ink)}
+.sizes td.dim{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:var(--ink-2)}
+.sizes td.count{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:var(--muted);text-align:right}
+.sizes td.desc{font-size:12.5px;color:var(--muted)}
+
+/* ------------------------------------------------------------------
+   How-to / code blocks
+   ------------------------------------------------------------------ */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:860px){.how-grid{grid-template-columns:1fr}}
+.how-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;
+}
+.how-card .num{
+  width:28px;height:28px;border-radius:50%;background:rgba(0,79,70,.08);color:var(--teal);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;margin-bottom:12px;
+}
+.how-card h5{margin:0 0 6px;font-size:14px;font-weight:700}
+.how-card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
+.how-card code.block{
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;
+  background:#0F1419;color:#E8ECEE;padding:10px 12px;border-radius:8px;
+  display:block;margin-top:12px;overflow-x:auto;white-space:nowrap;
+}
+
+/* ------------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------------ */
+footer.foot{
+  margin-top:72px;padding-top:28px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  color:var(--muted);font-size:12.5px;
+}
+footer.foot a{color:var(--teal);text-decoration:none}
+footer.foot a:hover{text-decoration:underline}
+
+/* ------------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------------ */
+@media (max-width:960px){
+  .shell{grid-template-columns:1fr}
+  aside.toc{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:20px}
+  main.content{padding:24px}
+  .grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<aside class="toc">
+  <a href="../index.html" style="text-decoration:none;color:inherit">
+    <div class="brand"><img src="../icons/master/primary-1024.png" class="logo" alt="">Visit Bulgaria<br>App Store Screenshots</div>
+  </a>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 10px;margin-bottom:12px;font-size:11.5px;color:var(--muted);text-decoration:none;font-weight:500">← Back to brand kit</a>
+
+  <ul>
+    <li class="label">Overview</li>
+    <li><a href="#overview">Summary</a></li>
+    <li><a href="#canvases">Canvas sizes</a></li>
+
+    <li class="label">Source screens</li>
+    <li><a href="#screens">All 7 screens</a></li>
+
+    <li class="label">Generator</li>
+    <li><a href="#how-to">Run the app</a></li>
+    <li><a href="#source">Source code</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+
+<header class="hero">
+  <p class="eyebrow">Marketing assets · v1.0 · 2026-04-19</p>
+  <h1>App Store + Play Store screenshots</h1>
+  <p class="lede">
+    Seven marketing slides composed from seven native-3× Mobile-app screens
+    (<code>1179×2556</code>) — exported at every store-required size via a Next.js generator.
+    Source PNGs are rendered natively from Figma, not software-upscaled, so the in-frame
+    detail is crisp all the way down to the thumbnails inside each screen.
+  </p>
+  <div class="meta">
+    <span class="swatch"><span class="dot" style="background:#004F46"></span>Teal <code>#004F46</code></span>
+    <span class="swatch"><span class="dot" style="background:#F7EFE1"></span>Cream <code>#F7EFE1</code></span>
+    <span class="swatch">Native 3× · no upscale</span>
+    <span class="swatch">7 slides · 4 iPhone sizes · Android · feature graphic</span>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- OVERVIEW                                                     -->
+<!-- ============================================================ -->
+<section id="overview">
+  <h2>Overview</h2>
+  <h3>What’s in this set</h3>
+  <p class="desc">
+    The seven phone screens below are the raw input to the App Store slide generator.
+    Each slide wraps one screen in a branded canvas (headline, eyebrow, decorative pins / polaroids,
+    background gradient), then exports at every pixel size Apple and Google require.
+  </p>
+
+  <div class="grid four">
+    <div class="card">
+      <p class="title">Source screens</p>
+      <p class="label">7 × 1179 × 2556 PNG</p>
+      <p class="path">screenshots/en/</p>
+    </div>
+    <div class="card">
+      <p class="title">iPhone slide sizes</p>
+      <p class="label">6.9″ · 6.5″ · 6.3″ · 6.1″</p>
+      <p class="path">exports/iphone-6.9/ …</p>
+    </div>
+    <div class="card">
+      <p class="title">Android slide</p>
+      <p class="label">1080 × 1920 PNG</p>
+      <p class="path">exports/android/</p>
+    </div>
+    <div class="card">
+      <p class="title">Play feature graphic</p>
+      <p class="label">1024 × 500 PNG</p>
+      <p class="path">exports/feature-graphic/</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CANVAS SIZES                                                 -->
+<!-- ============================================================ -->
+<section id="canvases">
+  <h2>Canvas sizes</h2>
+  <h3>Every size the stores ask for</h3>
+  <p class="desc">
+    Apple requires one screenshot per display-size tier; it auto-scales within a tier
+    but not across them. Google Play takes one master plus a feature graphic.
+  </p>
+  <div class="sizes">
+    <table>
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Device tier</th>
+          <th>Pixels</th>
+          <th class="count">Slides</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="plat">iOS</td><td>iPhone 6.9″</td><td class="dim">1320 × 2868</td><td class="count">7</td><td class="desc">Master canvas — all other iPhone sizes re-export from the same composition</td></tr>
+        <tr><td class="plat">iOS</td><td>iPhone 6.5″ &amp; 6.7″</td><td class="dim">1284 × 2778</td><td class="count">7</td><td class="desc">Covers iPhone 11/12/13/14 Plus &amp; Pro Max family</td></tr>
+        <tr><td class="plat">iOS</td><td>iPhone 6.3″</td><td class="dim">1206 × 2622</td><td class="count">7</td><td class="desc">iPhone 15/16 Pro</td></tr>
+        <tr><td class="plat">iOS</td><td>iPhone 6.1″</td><td class="dim">1125 × 2436</td><td class="count">7</td><td class="desc">iPhone 11/12/13 Pro</td></tr>
+        <tr><td class="plat">Android</td><td>Phone</td><td class="dim">1080 × 1920</td><td class="count">7</td><td class="desc">Google Play marketing screenshots</td></tr>
+        <tr><td class="plat">Android</td><td>Feature graphic</td><td class="dim">1024 × 500</td><td class="count">1</td><td class="desc">Play Store listing banner — no device frame</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCREENS GALLERY                                              -->
+<!-- ============================================================ -->
+<section id="screens">
+  <h2>Source screens</h2>
+  <h3>All seven, native 3×</h3>
+  <p class="desc">
+    These are the raw phone screens before the marketing layer is composed on top.
+    Captured from the Mobile-app Figma file (<code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#f7f6f1;padding:1px 6px;border-radius:4px">ngu8u7dzrbq08RIPSedKOC</code>),
+    exported at 3× (393 × 852 → 1179 × 2556) so every thumbnail, icon, and label inside the app stays crisp when rendered at the final slide size.
+  </p>
+
+  <div class="screen-grid">
+
+    <div class="screen">
+      <div class="stage"><img src="en/01-welcome.png" alt="Welcome splash"></div>
+      <div class="meta-row">
+        <span class="num">01 · Welcome</span>
+        <h4 class="name">Discover Bulgaria</h4>
+        <p class="desc-small">Splash entry — Get Started / Log in. Rila Monastery &amp; mountain polaroid.</p>
+        <div class="foot">
+          <code>01-welcome.png</code>
+          <a href="en/01-welcome.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="stage"><img src="en/02-country-map.png" alt="Bulgaria map with city cards"></div>
+      <div class="meta-row">
+        <span class="num">02 · Country map</span>
+        <h4 class="name">Every city, on one map</h4>
+        <p class="desc-small">Country-wide map — city photo cards instead of pins (Plovdiv, Haskovo, Stara Zagora, Veliko Tarnovo).</p>
+        <div class="foot">
+          <code>02-country-map.png</code>
+          <a href="en/02-country-map.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="stage"><img src="en/03-nearby.png" alt="Nearby places list"></div>
+      <div class="meta-row">
+        <span class="num">03 · Nearby</span>
+        <h4 class="name">Right around you</h4>
+        <p class="desc-small">Ten places within walking distance — Alexander Nevsky, Made in Blue, St Sofia, Borisova Garden, Grand Hotel Sofia.</p>
+        <div class="foot">
+          <code>03-nearby.png</code>
+          <a href="en/03-nearby.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="stage"><img src="en/04-plan-day.png" alt="Route detail with progress"></div>
+      <div class="meta-row">
+        <span class="num">04 · Plan day</span>
+        <h4 class="name">Day by day</h4>
+        <p class="desc-small">Historic Sofia Walk — 4-day multi-stop route, progress bar, visited / unvisited markers.</p>
+        <div class="foot">
+          <code>04-plan-day.png</code>
+          <a href="en/04-plan-day.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen dark">
+      <div class="stage"><img src="en/05-event.png" alt="Event detail"></div>
+      <div class="meta-row">
+        <span class="num">05 · Event</span>
+        <h4 class="name">Never miss an event</h4>
+        <p class="desc-small">Plovdiv Jazz Fest · June 14, 2026 — event detail with hero image and date block.</p>
+        <div class="foot">
+          <code>05-event.png</code>
+          <a href="en/05-event.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="stage"><img src="en/06-language.png" alt="Language selector"></div>
+      <div class="meta-row">
+        <span class="num">06 · Language</span>
+        <h4 class="name">In your language</h4>
+        <p class="desc-small">40+ languages including full Cyrillic — one-tap switcher.</p>
+        <div class="foot">
+          <code>06-language.png</code>
+          <a href="en/06-language.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="stage"><img src="en/07-start.png" alt="Start exploring"></div>
+      <div class="meta-row">
+        <span class="num">07 · Start</span>
+        <h4 class="name">Start exploring</h4>
+        <p class="desc-small">Final onboarding card — Explore beautiful places, Skip / Next, backed by the country map.</p>
+        <div class="foot">
+          <code>07-start.png</code>
+          <a href="en/07-start.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- HOW-TO                                                       -->
+<!-- ============================================================ -->
+<section id="how-to">
+  <h2>Generator</h2>
+  <h3>Run it locally</h3>
+  <p class="desc">
+    The final store-ready PNGs are composed by a Next.js app in <code style="font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#f7f6f1;padding:1px 6px;border-radius:4px">design-ai/app-store-screenshots/</code>.
+    Each slide reads one of the seven screens above, wraps it in a frame, and renders at every required size.
+  </p>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="num">1</div>
+      <h5>Start the dev server</h5>
+      <p>Preview all seven slides at every size with live reload.</p>
+      <code class="block">cd design-ai/app-store-screenshots
+bun install &amp;&amp; bun dev</code>
+    </div>
+    <div class="how-card">
+      <div class="num">2</div>
+      <h5>Preview a single slide</h5>
+      <p>Proof a slide at a specific device size via query string.</p>
+      <code class="block">open http://localhost:3030\
+/?only=0&amp;device=iphone&amp;w=1320</code>
+    </div>
+    <div class="how-card">
+      <div class="num">3</div>
+      <h5>Export every PNG</h5>
+      <p>Headless-Chrome batch — writes to <code>exports/</code> by device tier.</p>
+      <code class="block">./export.sh</code>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SOURCE                                                       -->
+<!-- ============================================================ -->
+<section id="source">
+  <h2>Source</h2>
+  <h3>Where the code lives</h3>
+  <p class="desc">
+    Single-file slide definitions — edit one file to change any slide.
+  </p>
+
+  <div class="grid two">
+    <div class="card">
+      <p class="title">Slide definitions</p>
+      <p class="label">Seven React components — one per slide</p>
+      <p class="path">app-store-screenshots/src/slides/index.tsx</p>
+    </div>
+    <div class="card">
+      <p class="title">Preview + export page</p>
+      <p class="label">Offscreen full-size copies fed to html-to-image</p>
+      <p class="path">app-store-screenshots/src/app/page.tsx</p>
+    </div>
+    <div class="card">
+      <p class="title">Phone &amp; Android frames</p>
+      <p class="label">iPhone mockup + Android capsule</p>
+      <p class="path">app-store-screenshots/src/components/frames.tsx</p>
+    </div>
+    <div class="card">
+      <p class="title">Constants</p>
+      <p class="label">Canvas sizes · palette · phone-width math</p>
+      <p class="path">app-store-screenshots/src/lib/constants.ts</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div>Visit Bulgaria · App Store screenshots · native 3× source · composed via Next.js</div>
+  <div><a href="../index.html">← Brand kit home</a></div>
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>

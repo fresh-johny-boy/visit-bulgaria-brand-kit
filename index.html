@@ -124,7 +124,7 @@ header.hero p.lede{
 /* Two-kit cards                                                       */
 /* ------------------------------------------------------------------ */
 section.kits{padding:80px 0 40px}
-.kit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.kit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px}
 .kit{
   background:var(--panel);border:1px solid var(--line);border-radius:24px;
   overflow:hidden;transition:transform .2s,box-shadow .2s;
@@ -154,6 +154,25 @@ section.kits{padding:80px 0 40px}
     radial-gradient(circle at 20% 80%, #002a25 0%, transparent 50%),
     linear-gradient(180deg, var(--teal-mid), var(--teal));
 }
+.kit.screens .visual{
+  background:
+    radial-gradient(circle at 30% 20%, #f9efd9 0%, transparent 55%),
+    radial-gradient(circle at 80% 80%, #e8dfcb 0%, transparent 50%),
+    linear-gradient(180deg, #f7efe1, #e8dfcb);
+  position:relative;padding:22px 0 0;
+}
+.kit.screens .visual .phone-stack{
+  position:relative;width:100%;height:100%;display:flex;justify-content:center;align-items:flex-end;
+}
+.kit.screens .visual .phone{
+  width:22%;aspect-ratio:9/19.5;border-radius:14% / 6.5%;
+  background-size:cover;background-position:top center;background-repeat:no-repeat;background-color:#fff;
+  box-shadow:0 18px 36px -14px rgba(20,32,29,.45), 0 0 0 1.4px rgba(20,32,29,.14);
+  position:absolute;bottom:0;
+}
+.kit.screens .visual .phone.p1{left:22%;transform:translateY(8%) rotate(-7deg);z-index:1}
+.kit.screens .visual .phone.p2{left:50%;transform:translate(-50%, 0) rotate(0deg);z-index:3}
+.kit.screens .visual .phone.p3{right:22%;transform:translateY(8%) rotate(7deg);z-index:1}
 /* Waveform visual for sounds card */
 .kit.sounds .visual .wave{
   display:flex;align-items:center;gap:3px;height:80px;
@@ -413,6 +432,7 @@ footer a:hover{text-decoration:underline}
   <ul>
     <li><a href="icons/index.html">Icons</a></li>
     <li><a href="sounds/index.html">Sounds</a></li>
+    <li><a href="screenshots/index.html">Screenshots</a></li>
     <li><a href="#figma">Figma</a></li>
     <li><a href="#downloads">Downloads</a></li>
     <li><a href="downloads/visit-bulgaria-brand-kit.zip" class="cta" download>Download all</a></li>
@@ -424,14 +444,15 @@ footer a:hover{text-decoration:underline}
 <header class="hero">
   <h1>Everything devs need, in <span class="accent">one place</span></h1>
   <p class="lede">
-    Production-ready launcher icons for iOS + Android + Web, plus a 31-sound UI kit — all derived from
-    the Visit Bulgaria brand-bar lockup. Self-contained, versioned, and regenerable from source.
+    Production-ready launcher icons for iOS + Android + Web, a 31-sound UI kit, and the seven
+    App Store + Play Store screenshots — all derived from the Visit Bulgaria brand-bar lockup.
+    Self-contained, versioned, and regenerable from source.
   </p>
   <div class="hero-cta">
     <a class="btn primary" href="downloads/visit-bulgaria-brand-kit.zip" download>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download everything
-      <span class="size">2.8 MB · ZIP</span>
+      <span class="size">10.5 MB · ZIP</span>
     </a>
     <a class="btn ghost" href="#kits">Browse the kits</a>
   </div>
@@ -521,6 +542,35 @@ footer a:hover{text-decoration:underline}
       </div>
     </a>
 
+    <a class="kit screens" href="screenshots/index.html" style="text-decoration:none;color:inherit">
+      <div class="visual">
+        <div class="phone-stack">
+          <div class="phone p1" style="background-image:url('screenshots/en/01-welcome.png')"></div>
+          <div class="phone p2" style="background-image:url('screenshots/en/03-nearby.png')"></div>
+          <div class="phone p3" style="background-image:url('screenshots/en/04-plan-day.png')"></div>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="head">
+          <h2>App Store Screenshots</h2>
+          <span class="count">7 slides</span>
+        </div>
+        <p>
+          Seven marketing slides composed from native-3× Mobile-app screens. Renders at every pixel size
+          Apple + Google require — iPhone 6.9″/6.5″/6.3″/6.1″, Android phone, and Play feature graphic.
+        </p>
+        <div class="tags">
+          <span class="tag">Native 1179 × 2556</span>
+          <span class="tag">4 iPhone sizes</span>
+          <span class="tag">Android 1080 × 1920</span>
+          <span class="tag">Next.js generator</span>
+        </div>
+        <div class="actions">
+          <span class="btn primary sm">Open gallery &nbsp;→</span>
+        </div>
+      </div>
+    </a>
+
   </div>
 </section>
 
@@ -599,12 +649,13 @@ footer a:hover{text-decoration:underline}
     </div>
     <div class="dl-controls">
       <div class="filters" role="tablist" aria-label="Filter by platform">
-        <button class="f active" data-filter="all">All <span class="n">6</span></button>
+        <button class="f active" data-filter="all">All <span class="n">7</span></button>
         <button class="f" data-filter="icons">Icons</button>
         <button class="f" data-filter="ios">iOS</button>
         <button class="f" data-filter="android">Android</button>
         <button class="f" data-filter="web">Web</button>
         <button class="f" data-filter="sounds">Sounds</button>
+        <button class="f" data-filter="screenshots">Screenshots</button>
       </div>
       <label class="search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>
@@ -627,7 +678,7 @@ footer a:hover{text-decoration:underline}
       </thead>
       <tbody id="dlRows">
 
-        <tr data-tags="all brand-kit icons sounds ios android web" data-name="visit-bulgaria-brand-kit">
+        <tr data-tags="all brand-kit icons sounds screenshots ios android web" data-name="visit-bulgaria-brand-kit">
           <td class="file">
             <code>visit-bulgaria-brand-kit.zip</code>
             <span class="pill pill-teal">All</span>
@@ -637,9 +688,10 @@ footer a:hover{text-decoration:underline}
             <span class="p-tag">Android</span>
             <span class="p-tag">Web</span>
             <span class="p-tag">Sounds</span>
+            <span class="p-tag">Screenshots</span>
           </td>
-          <td class="num">2.8 MB</td>
-          <td class="num">78</td>
+          <td class="num">10.5 MB</td>
+          <td class="num">86</td>
           <td class="desc">Everything in one archive.</td>
           <td class="action">
             <a href="downloads/visit-bulgaria-brand-kit.zip" download class="dl-btn">
@@ -741,6 +793,24 @@ footer a:hover{text-decoration:underline}
           </td>
         </tr>
 
+        <tr data-tags="screenshots marketing appstore playstore" data-name="visit-bulgaria-screenshots">
+          <td class="file">
+            <code>visit-bulgaria-screenshots.zip</code>
+          </td>
+          <td class="plat">
+            <span class="p-tag">Screenshots</span>
+          </td>
+          <td class="num">7.8 MB</td>
+          <td class="num">7</td>
+          <td class="desc">Seven native-3× Mobile-app screens (1179 × 2556) — source input for App Store + Play Store slide generator.</td>
+          <td class="action">
+            <a href="downloads/visit-bulgaria-screenshots.zip" download class="dl-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Get</span>
+            </a>
+          </td>
+        </tr>
+
       </tbody>
     </table>
     <p class="dl-empty" id="dlEmpty" hidden>No bundles match.</p>
@@ -757,6 +827,7 @@ footer a:hover{text-decoration:underline}
     <div>
       <a href="icons/index.html">Icons docs</a> &nbsp;·&nbsp;
       <a href="sounds/index.html">Sounds docs</a> &nbsp;·&nbsp;
+      <a href="screenshots/index.html">Screenshots docs</a> &nbsp;·&nbsp;
       <a href="#downloads">Downloads</a>
     </div>
   </div>

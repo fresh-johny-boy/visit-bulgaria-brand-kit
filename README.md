@@ -1,6 +1,6 @@
 # Visit Bulgaria — Brand Kit
 
-Production iOS + Android + web icons, plus a 31-sound UI kit. Everything a developer needs to ship a Visit Bulgaria surface.
+Production iOS + Android + web icons, a 31-sound UI kit, and the seven App Store + Play Store marketing screens. Everything a developer needs to ship a Visit Bulgaria surface.
 
 **Live site:** <https://YOUR-ORG.github.io/brand-kit/>
 
@@ -8,12 +8,13 @@ Production iOS + Android + web icons, plus a 31-sound UI kit. Everything a devel
 
 ## Quick download
 
-- **Everything** — [visit-bulgaria-brand-kit.zip](downloads/visit-bulgaria-brand-kit.zip) (≈2.8 MB · 78 files)
+- **Everything** — [visit-bulgaria-brand-kit.zip](downloads/visit-bulgaria-brand-kit.zip) (≈10.5 MB · 86 files)
 - **Icons only** — [visit-bulgaria-icons.zip](downloads/visit-bulgaria-icons.zip) (≈2.1 MB · 43 files)
 - **iOS** — [visit-bulgaria-icons-ios.zip](downloads/visit-bulgaria-icons-ios.zip) (≈461 KB)
 - **Android** — [visit-bulgaria-icons-android.zip](downloads/visit-bulgaria-icons-android.zip) (≈255 KB)
 - **Web / PWA / social** — [visit-bulgaria-icons-web.zip](downloads/visit-bulgaria-icons-web.zip) (≈396 KB)
 - **Sounds** — [visit-bulgaria-sounds.zip](downloads/visit-bulgaria-sounds.zip) (≈653 KB · 31 WAVs)
+- **Screenshots** — [visit-bulgaria-screenshots.zip](downloads/visit-bulgaria-screenshots.zip) (≈7.8 MB · 7 native-3× PNGs)
 
 ---
 
@@ -38,6 +39,9 @@ brand-kit/
 │   ├── LICENSE.md             # usage terms
 │   ├── *.wav                  # 31 synthesised sounds
 │   └── generate.py            # regenerate from scratch
+├── screenshots/               # App Store + Play Store marketing
+│   ├── index.html             # screenshots gallery + specs
+│   └── en/                    # 7 native-3× Mobile-app screens (1179 × 2556)
 ├── downloads/                 # zipped bundles (built by _build/build_zips.py)
 └── _build/
     └── build_zips.py          # zip bundler
