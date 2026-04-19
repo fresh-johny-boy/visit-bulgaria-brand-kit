@@ -181,43 +181,116 @@ section.kits{padding:80px 0 40px}
 .kit .btn.ghost.sm{flex-shrink:0}
 
 /* ------------------------------------------------------------------ */
-/* Quick-download table                                                */
+/* Downloads — filterable table                                        */
 /* ------------------------------------------------------------------ */
-section.downloads{padding:40px 0 60px}
-section.downloads h3{font-size:22px;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
-section.downloads p.sub{margin:0 0 24px;color:var(--muted);font-size:14px;max-width:560px}
-.dl-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:12px;
+section.downloads{padding:40px 0 80px}
+section.downloads h3{font-size:22px;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+section.downloads p.sub{margin:0;color:var(--muted);font-size:14px}
+
+.dl-head{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
+  flex-wrap:wrap;margin-bottom:20px;
 }
-.dl-card{
-  background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
-  display:flex;flex-direction:column;gap:12px;
-  transition:border-color .15s,transform .15s;
+.dl-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+.filters{
+  display:inline-flex;gap:2px;padding:4px;
+  background:#fff;border:1px solid var(--line);border-radius:10px;
 }
-.dl-card:hover{border-color:var(--teal);transform:translateY(-2px)}
-.dl-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.dl-card .top h4{margin:0;font-size:14px;font-weight:600;letter-spacing:-.005em}
-.dl-card .top .ext{
-  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);
-  padding:3px 8px;border-radius:6px;background:#f3f2ee;font-weight:600;
-  letter-spacing:.04em;
-}
-.dl-card p{margin:0;font-size:12px;color:var(--muted);line-height:1.5;flex:1}
-.dl-card .foot{
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  padding-top:10px;border-top:1px solid var(--line);
-}
-.dl-card .size-m{
-  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
-}
-.dl-card a.dl{
-  color:var(--teal);text-decoration:none;font-weight:600;font-size:12px;
+.filters .f{
+  padding:7px 14px;border:0;background:transparent;cursor:pointer;
+  font-family:inherit;font-size:12.5px;font-weight:600;color:var(--muted);
+  border-radius:7px;transition:all .15s;
   display:inline-flex;align-items:center;gap:6px;
 }
-.dl-card a.dl:hover{text-decoration:underline}
-.dl-card a.dl svg{width:14px;height:14px}
+.filters .f:hover{color:var(--ink);background:rgba(0,79,70,.04)}
+.filters .f.active{background:var(--teal);color:#fff}
+.filters .f.active .n{color:rgba(255,255,255,.7)}
+.filters .f .n{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted-2);font-weight:500}
+
+.search{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;
+  color:var(--muted);transition:border-color .15s;
+}
+.search:focus-within{border-color:var(--teal)}
+.search svg{flex-shrink:0}
+.search input{
+  border:0;outline:0;background:transparent;font-family:inherit;font-size:13px;
+  color:var(--ink);width:180px;
+}
+.search input::placeholder{color:var(--muted-2)}
+
+.dl-table-wrap{
+  background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(20,32,29,.02), 0 10px 30px -18px rgba(20,32,29,.10);
+}
+.dl-table{width:100%;border-collapse:collapse;font-size:13px}
+.dl-table thead th{
+  text-align:left;padding:14px 18px;font-weight:700;color:var(--muted);
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:#fafaf5;border-bottom:1px solid var(--line);
+  white-space:nowrap;
+}
+.dl-table thead th.num{text-align:right}
+.dl-table thead th.action{text-align:right;padding-right:18px}
+.dl-table tbody td{
+  padding:16px 18px;border-bottom:1px solid var(--line);
+  vertical-align:middle;color:var(--ink-2);
+}
+.dl-table tbody tr:last-child td{border-bottom:0}
+.dl-table tbody tr{transition:background .12s}
+.dl-table tbody tr:hover{background:rgba(0,79,70,.03)}
+.dl-table tbody tr.hidden{display:none}
+
+.dl-table td.file{white-space:nowrap}
+.dl-table td.file code{
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink);
+  font-weight:500;padding:3px 8px;background:#f7f6f1;border-radius:6px;
+}
+.dl-table td.plat{white-space:nowrap}
+.p-tag{
+  display:inline-block;font-size:10.5px;padding:3px 8px;border-radius:5px;
+  background:#e8f4f2;color:var(--teal);font-weight:600;
+  margin-right:4px;letter-spacing:.02em;
+}
+.pill{
+  display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;
+  font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-left:8px;
+}
+.pill-teal{background:var(--teal);color:#fff}
+
+.dl-table td.num{
+  text-align:right;white-space:nowrap;
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+.dl-table td.desc{font-size:12.5px;color:var(--muted);line-height:1.5;max-width:320px}
+.dl-table td.desc code{
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-2);
+  background:#f7f6f1;padding:1px 5px;border-radius:4px;
+}
+.dl-table td.action{text-align:right;padding-right:18px}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:8px;background:var(--teal);color:#fff;
+  text-decoration:none;font-size:12px;font-weight:600;
+  transition:background .15s,transform .12s;
+}
+.dl-btn:hover{background:var(--teal-mid);transform:translateY(-1px)}
+.dl-btn svg{width:13px;height:13px}
+
+.dl-empty{
+  padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;margin:0;
+}
+
+@media (max-width:860px){
+  .dl-head{flex-direction:column;align-items:flex-start}
+  .dl-controls{width:100%}
+  .search input{width:100%}
+  .dl-table td.desc{display:none}
+  .dl-table th:nth-child(5){display:none}
+}
 
 /* ------------------------------------------------------------------ */
 /* What's inside                                                       */
@@ -406,137 +479,161 @@ footer a:hover{text-decoration:underline}
 </section>
 
 <!-- ─────────────────────────────────────────────────────────── -->
-<!-- Downloads                                                    -->
+<!-- Downloads — filterable table                                 -->
 <!-- ─────────────────────────────────────────────────────────── -->
 <section class="downloads" id="downloads">
-  <h3>Downloads</h3>
-  <p class="sub">Grab everything, or just the platform you need. Each bundle includes the asset tree and a README.</p>
-
-  <div class="dl-grid">
-    <div class="dl-card">
-      <div class="top"><h4>Everything · Icons + Sounds</h4><span class="ext">ZIP</span></div>
-      <p>Complete brand kit. All icon platforms plus the full UI sound library.</p>
-      <div class="foot">
-        <span class="size-m">2.8 MB · 78 files</span>
-        <a class="dl" href="downloads/visit-bulgaria-brand-kit.zip" download>Download
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+  <div class="dl-head">
+    <div>
+      <h3>Downloads</h3>
+      <p class="sub">Every asset bundle — filter by platform, search, click to download.</p>
     </div>
-    <div class="dl-card">
-      <div class="top"><h4>All icons</h4><span class="ext">ZIP</span></div>
-      <p>Master PNGs + iOS + Android + Web. Everything in <code>icons/</code>.</p>
-      <div class="foot">
-        <span class="size-m">2.1 MB · 43 files</span>
-        <a class="dl" href="downloads/visit-bulgaria-icons.zip" download>Download
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+    <div class="dl-controls">
+      <div class="filters" role="tablist" aria-label="Filter by platform">
+        <button class="f active" data-filter="all">All <span class="n">6</span></button>
+        <button class="f" data-filter="icons">Icons</button>
+        <button class="f" data-filter="ios">iOS</button>
+        <button class="f" data-filter="android">Android</button>
+        <button class="f" data-filter="web">Web</button>
+        <button class="f" data-filter="sounds">Sounds</button>
       </div>
-    </div>
-    <div class="dl-card">
-      <div class="top"><h4>iOS only</h4><span class="ext">ZIP</span></div>
-      <p>Drop-in Xcode <code>AppIcon.appiconset/</code> — light, dark, tinted.</p>
-      <div class="foot">
-        <span class="size-m">461 KB</span>
-        <a class="dl" href="downloads/visit-bulgaria-icons-ios.zip" download>Download
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="dl-card">
-      <div class="top"><h4>Android only</h4><span class="ext">ZIP</span></div>
-      <p>Drop-in <code>res/mipmap-*</code> — 5 densities + adaptive layers + Play Store.</p>
-      <div class="foot">
-        <span class="size-m">255 KB</span>
-        <a class="dl" href="downloads/visit-bulgaria-icons-android.zip" download>Download
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="dl-card">
-      <div class="top"><h4>Web only</h4><span class="ext">ZIP</span></div>
-      <p>Favicons, PWA, Apple touch, Windows tile, OG card, manifest.</p>
-      <div class="foot">
-        <span class="size-m">396 KB · 15 files</span>
-        <a class="dl" href="downloads/visit-bulgaria-icons-web.zip" download>Download
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="dl-card">
-      <div class="top"><h4>Sounds only</h4><span class="ext">ZIP</span></div>
-      <p>31 WAV files plus <code>generate.py</code> source and docs.</p>
-      <div class="foot">
-        <span class="size-m">653 KB · 34 files</span>
-        <a class="dl" href="downloads/visit-bulgaria-sounds.zip" download>Download
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+      <label class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>
+        <input type="text" id="dlSearch" placeholder="Search bundles…">
+      </label>
     </div>
   </div>
-</section>
 
-<!-- ─────────────────────────────────────────────────────────── -->
-<!-- What's inside                                                -->
-<!-- ─────────────────────────────────────────────────────────── -->
-<section class="inside">
-  <h3 style="font-size:22px;margin:0 0 24px">What’s inside</h3>
-  <div class="inside-grid">
+  <div class="dl-table-wrap">
+    <table class="dl-table">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Platform</th>
+          <th class="num">Size</th>
+          <th class="num">Files</th>
+          <th>Contents</th>
+          <th class="action">Download</th>
+        </tr>
+      </thead>
+      <tbody id="dlRows">
 
-    <div class="inside-card">
-      <h4>Icon system</h4>
-      <ul>
-        <li><b>Master</b> — 1024 primary (white rose on teal), alt (brand-faithful), transparent rose layers</li>
-        <li><b>iOS</b> — <code>AppIcon.appiconset/</code> with light + dark + tinted (iOS 18+)</li>
-        <li><b>Android</b> — adaptive foreground + background + monochrome, legacy densities, Play Store 512</li>
-        <li><b>Web</b> — favicon bundle, Apple touch, PWA 192 / 512 + maskable, Windows tile, 1200×630 OG card, <code>site.webmanifest</code></li>
-        <li><b>Source</b> — <code>brand-bar_icon.svg</code> + deterministic rebuild via <code>build_icons.py</code></li>
-      </ul>
-    </div>
+        <tr data-tags="all brand-kit icons sounds ios android web" data-name="visit-bulgaria-brand-kit">
+          <td class="file">
+            <code>visit-bulgaria-brand-kit.zip</code>
+            <span class="pill pill-teal">All</span>
+          </td>
+          <td class="plat">
+            <span class="p-tag">iOS</span>
+            <span class="p-tag">Android</span>
+            <span class="p-tag">Web</span>
+            <span class="p-tag">Sounds</span>
+          </td>
+          <td class="num">2.8 MB</td>
+          <td class="num">78</td>
+          <td class="desc">Everything in one archive.</td>
+          <td class="action">
+            <a href="downloads/visit-bulgaria-brand-kit.zip" download class="dl-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Get</span>
+            </a>
+          </td>
+        </tr>
 
-    <div class="inside-card">
-      <h4>UI sound kit</h4>
-      <ul>
-        <li><b>Clicks</b> — soft, sharp, deep, tick (every button tap)</li>
-        <li><b>Confirms + Successes</b> — pop, chime, soft-tap, arpeggio, login-success</li>
-        <li><b>Errors + Warnings</b> — minor, buzz, delete-thud, delete-sharp</li>
-        <li><b>Toggles + Navigation</b> — on/off, select/deselect, swoosh, swipe, back, refresh</li>
-        <li><b>Notifications + Brand</b> — gentle, message, alert, passport-stamp, day-complete, route-complete</li>
-      </ul>
-    </div>
-  </div>
-</section>
+        <tr data-tags="icons ios android web" data-name="visit-bulgaria-icons">
+          <td class="file">
+            <code>visit-bulgaria-icons.zip</code>
+          </td>
+          <td class="plat">
+            <span class="p-tag">iOS</span>
+            <span class="p-tag">Android</span>
+            <span class="p-tag">Web</span>
+          </td>
+          <td class="num">2.1 MB</td>
+          <td class="num">43</td>
+          <td class="desc">Master PNGs + iOS + Android + Web.</td>
+          <td class="action">
+            <a href="downloads/visit-bulgaria-icons.zip" download class="dl-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Get</span>
+            </a>
+          </td>
+        </tr>
 
-<!-- ─────────────────────────────────────────────────────────── -->
-<!-- How to use                                                   -->
-<!-- ─────────────────────────────────────────────────────────── -->
-<section class="how">
-  <h3 style="font-size:22px;margin:0 0 8px">How to use</h3>
-  <p style="margin:0 0 24px;color:var(--muted);font-size:14px">Paste-in integration for the three most common setups.</p>
+        <tr data-tags="icons ios appicon xcode" data-name="visit-bulgaria-icons-ios">
+          <td class="file">
+            <code>visit-bulgaria-icons-ios.zip</code>
+          </td>
+          <td class="plat">
+            <span class="p-tag">iOS</span>
+          </td>
+          <td class="num">461 KB</td>
+          <td class="num">5</td>
+          <td class="desc">Xcode <code>AppIcon.appiconset/</code> — light, dark, tinted.</td>
+          <td class="action">
+            <a href="downloads/visit-bulgaria-icons-ios.zip" download class="dl-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Get</span>
+            </a>
+          </td>
+        </tr>
 
-  <div class="how-grid">
+        <tr data-tags="icons android mipmap adaptive playstore" data-name="visit-bulgaria-icons-android">
+          <td class="file">
+            <code>visit-bulgaria-icons-android.zip</code>
+          </td>
+          <td class="plat">
+            <span class="p-tag">Android</span>
+          </td>
+          <td class="num">255 KB</td>
+          <td class="num">17</td>
+          <td class="desc"><code>res/mipmap-*</code> — 5 densities + adaptive layers + Play Store.</td>
+          <td class="action">
+            <a href="downloads/visit-bulgaria-icons-android.zip" download class="dl-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Get</span>
+            </a>
+          </td>
+        </tr>
 
-    <div class="how-card">
-      <div class="num">1</div>
-      <h5>iOS · Xcode</h5>
-      <p>Replace your asset catalog’s <code>AppIcon.appiconset/</code> with the one in the zip. Single-source 1024 — Xcode 14+ generates every size.</p>
-      <code>cp -R ios/AppIcon.appiconset/ &lt;App&gt;/Assets.xcassets/AppIcon.appiconset/</code>
-    </div>
+        <tr data-tags="icons web favicon pwa og manifest apple-touch" data-name="visit-bulgaria-icons-web">
+          <td class="file">
+            <code>visit-bulgaria-icons-web.zip</code>
+          </td>
+          <td class="plat">
+            <span class="p-tag">Web</span>
+          </td>
+          <td class="num">396 KB</td>
+          <td class="num">15</td>
+          <td class="desc">Favicons, PWA icons, Apple touch, Windows tile, OG card, manifest.</td>
+          <td class="action">
+            <a href="downloads/visit-bulgaria-icons-web.zip" download class="dl-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Get</span>
+            </a>
+          </td>
+        </tr>
 
-    <div class="how-card">
-      <div class="num">2</div>
-      <h5>Android · Studio</h5>
-      <p>Copy <code>mipmap-*</code> into <code>app/src/main/res/</code>. Themed icon is wired automatically via the <code>anydpi-v26</code> manifest.</p>
-      <code>cp -R android/mipmap-* app/src/main/res/</code>
-    </div>
+        <tr data-tags="sounds wav audio ui" data-name="visit-bulgaria-sounds">
+          <td class="file">
+            <code>visit-bulgaria-sounds.zip</code>
+          </td>
+          <td class="plat">
+            <span class="p-tag">Sounds</span>
+          </td>
+          <td class="num">653 KB</td>
+          <td class="num">34</td>
+          <td class="desc">31 WAVs + <code>generate.py</code> + docs.</td>
+          <td class="action">
+            <a href="downloads/visit-bulgaria-sounds.zip" download class="dl-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Get</span>
+            </a>
+          </td>
+        </tr>
 
-    <div class="how-card">
-      <div class="num">3</div>
-      <h5>Web · &lt;head&gt;</h5>
-      <p>Drop <code>web/</code> contents at your site root and paste the <code>&lt;head&gt;</code> snippet from <code>web/usage.html</code>.</p>
-      <code>cp -R web/* &lt;site-root&gt;/</code>
-    </div>
-
+      </tbody>
+    </table>
+    <p class="dl-empty" id="dlEmpty" hidden>No bundles match.</p>
   </div>
 </section>
 
@@ -554,6 +651,43 @@ footer a:hover{text-decoration:underline}
     </div>
   </div>
 </footer>
+
+<script>
+(function(){
+  const rows = Array.from(document.querySelectorAll('#dlRows tr'));
+  const filters = document.querySelectorAll('.filters .f');
+  const search = document.getElementById('dlSearch');
+  const empty = document.getElementById('dlEmpty');
+  let activeFilter = 'all';
+  let query = '';
+
+  function apply(){
+    let visible = 0;
+    rows.forEach(r => {
+      const tags = (r.dataset.tags || '').toLowerCase();
+      const name = (r.dataset.name || '').toLowerCase();
+      const matchesFilter = activeFilter === 'all' || tags.split(/\s+/).includes(activeFilter);
+      const matchesQuery = !query || name.includes(query) || tags.includes(query) || r.textContent.toLowerCase().includes(query);
+      const show = matchesFilter && matchesQuery;
+      r.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    empty.hidden = visible > 0;
+  }
+
+  filters.forEach(btn => btn.addEventListener('click', () => {
+    filters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    apply();
+  }));
+
+  search.addEventListener('input', () => {
+    query = search.value.trim().toLowerCase();
+    apply();
+  });
+})();
+</script>
 
 </body>
 </html>
