@@ -1,0 +1,33 @@
+{
+  "name": "Visit Bulgaria",
+  "short_name": "Visit BG",
+  "description": "Discover Bulgaria \u2014 places, routes, and events.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#004F46",
+  "background_color": "#004F46",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

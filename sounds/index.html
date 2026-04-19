@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Visit Bulgaria — UI Sound Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Visit Bulgaria mobile-app tokens — DESIGN.md */
+    --teal-700: #004f46;
+    --teal-600: #00675c;
+    --teal-500: #008577;
+    --teal-400: #00bba7;
+    --teal-50:  #e8f4f2;
+    --ink:      #131214;
+    --muted:    #6e7375;
+    --line:     #e6e9eb;
+    --surface:  #f4f6f7;
+    --white:    #ffffff;
+    --gold:     #ffb900;
+
+    --radius-card: 12px;
+    --radius-pill: 9999px;
+    --shadow-1: 0 1px 2px rgba(19,18,20,0.04), 0 4px 12px rgba(19,18,20,0.06);
+    --shadow-2: 0 4px 16px rgba(19,18,20,0.08), 0 2px 4px rgba(19,18,20,0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: "Plus Jakarta Sans", -apple-system, system-ui, sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "ss03";
+  }
+
+  a { color: inherit; }
+
+  /* ─── Layout ─── */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* ─── Hero ─── */
+  .hero {
+    padding: 80px 32px 64px;
+    text-align: left;
+  }
+  .hero-inner { max-width: 1136px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.6px;
+    text-transform: uppercase; color: var(--teal-600);
+    margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: ''; width: 24px; height: 1px;
+    background: var(--teal-600);
+  }
+  h1 {
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 108%;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 16px;
+    max-width: 14ch;
+  }
+  .lede {
+    font-size: 17px; font-weight: 400; line-height: 160%;
+    color: var(--muted); max-width: 56ch;
+  }
+  .hero-meta {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px;
+    align-items: center;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600;
+    padding: 6px 12px; border-radius: var(--radius-pill);
+    background: var(--white); color: var(--muted);
+    border: 1px solid var(--line);
+  }
+  .chip.brand {
+    background: var(--teal-50); color: var(--teal-700);
+    border-color: transparent;
+  }
+  .chip b { color: var(--ink); font-weight: 700; }
+  .chip svg { color: var(--teal-600); }
+
+  /* ─── Sticky controls ─── */
+  .bar {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(244, 246, 247, 0.85);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 32px;
+  }
+  .bar-inner {
+    max-width: 1136px; margin: 0 auto;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .search {
+    flex: 1; min-width: 220px;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: var(--radius-pill); padding: 10px 18px;
+    transition: border-color 0.15s;
+  }
+  .search:focus-within { border-color: var(--teal-600); }
+  .search svg { color: var(--muted); flex-shrink: 0; }
+  .search input {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-family: inherit; font-size: 14px; color: var(--ink);
+  }
+  .search input::placeholder { color: var(--muted); }
+  .search .clear {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    cursor: pointer; padding: 2px 8px; border-radius: 999px;
+    display: none;
+  }
+  .search.has-value .clear { display: inline-block; }
+  .search .clear:hover { background: var(--surface); color: var(--ink); }
+
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 700;
+    padding: 10px 20px; border-radius: var(--radius-pill);
+    background: var(--white); color: var(--ink);
+    border: 1px solid var(--line); cursor: pointer;
+    transition: all 0.15s; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { background: var(--surface); }
+  .btn.primary {
+    background: var(--ink); color: var(--white);
+    border-color: var(--ink);
+  }
+  .btn.primary:hover { background: #000; }
+  .btn.ghost { background: transparent; }
+
+  .vol {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .vol label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.6px;
+    text-transform: uppercase; color: var(--muted);
+  }
+  input[type=range] {
+    accent-color: var(--teal-600);
+    width: 80px; height: 4px;
+  }
+
+  /* ─── Group ─── */
+  .group {
+    padding: 56px 0 8px;
+    scroll-margin-top: 96px;
+  }
+  .group-head {
+    display: flex; align-items: flex-end; gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .group-number {
+    font-size: 12px; font-weight: 700; letter-spacing: 1.6px;
+    color: var(--teal-600);
+  }
+  .group-title {
+    font-size: 28px; font-weight: 800; line-height: 120%;
+    letter-spacing: -0.01em; color: var(--ink);
+    margin-top: 4px;
+  }
+  .group-desc {
+    font-size: 14px; font-weight: 400; line-height: 150%;
+    color: var(--muted); max-width: 48ch; margin-top: 8px;
+  }
+  .group-meta {
+    margin-left: auto; display: flex; gap: 8px; align-items: center;
+    flex-shrink: 0;
+  }
+  .group-count {
+    font-size: 12px; font-weight: 600; color: var(--muted);
+  }
+  .play-group {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    color: var(--teal-600); background: transparent;
+    border: none; cursor: pointer;
+    padding: 6px 10px; border-radius: var(--radius-pill);
+  }
+  .play-group:hover { background: var(--teal-50); }
+
+  /* ─── Cards grid ─── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 18px;
+    display: flex; flex-direction: column;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative; overflow: hidden;
+  }
+  .card:hover {
+    border-color: var(--teal-600);
+    box-shadow: var(--shadow-1);
+    transform: translateY(-1px);
+  }
+  .card.playing {
+    border-color: var(--teal-600);
+    background: linear-gradient(135deg, var(--white) 0%, var(--teal-50) 100%);
+  }
+  .card.playing::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--teal-600);
+  }
+  .card.hidden { display: none; }
+
+  .card-top {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .play-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--ink); color: var(--white);
+    border: none; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .play-btn:hover { background: var(--teal-600); transform: scale(1.04); }
+  .play-btn:active { transform: scale(0.96); }
+  .card.playing .play-btn {
+    background: var(--teal-600);
+  }
+  .card.playing .play-btn svg.play { display: none; }
+  .card.playing .play-btn svg.pulse { display: block; }
+  .play-btn svg.pulse { display: none; }
+
+  .card-title-block { flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 15px; font-weight: 700; line-height: 120%;
+    color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .card-file {
+    font-size: 11px; font-family: "SF Mono", Menlo, ui-monospace, monospace;
+    color: var(--muted); margin-top: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .card-desc {
+    font-size: 13px; font-weight: 400; line-height: 150%;
+    color: var(--ink); opacity: 0.85;
+  }
+
+  .card-bottom {
+    display: flex; align-items: center; gap: 8px;
+    justify-content: space-between;
+  }
+  .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.4px;
+    padding: 3px 8px; border-radius: var(--radius-pill);
+    background: var(--surface); color: var(--muted);
+    text-transform: uppercase;
+  }
+  .tag.featured {
+    background: var(--teal-50); color: var(--teal-700);
+  }
+
+  .download {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 8px; border-radius: 6px;
+    transition: all 0.15s;
+  }
+  .download:hover { background: var(--surface); color: var(--ink); }
+
+  /* ─── Empty search ─── */
+  .empty {
+    text-align: center; padding: 64px 20px;
+    color: var(--muted); display: none;
+  }
+  .empty.visible { display: block; }
+  .empty h3 {
+    font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 8px;
+  }
+
+  /* ─── Footer ─── */
+  footer {
+    margin-top: 96px; padding: 48px 32px;
+    border-top: 1px solid var(--line);
+    background: var(--white);
+  }
+  .foot {
+    max-width: 1136px; margin: 0 auto;
+    display: flex; justify-content: space-between; gap: 32px;
+    flex-wrap: wrap; align-items: flex-start;
+  }
+  .foot p {
+    font-size: 13px; line-height: 160%; color: var(--muted);
+    max-width: 56ch;
+  }
+  .foot .brand-name { color: var(--ink); font-weight: 700; }
+  .foot a { color: var(--teal-600); text-decoration: none; font-weight: 600; }
+  .foot a:hover { text-decoration: underline; }
+  .foot-links {
+    display: flex; gap: 20px; font-size: 13px; font-weight: 600;
+  }
+  .foot-links a { color: var(--muted); text-decoration: none; }
+  .foot-links a:hover { color: var(--ink); }
+
+  /* ─── Keyboard hint ─── */
+  .kbd {
+    display: inline-block;
+    padding: 1px 6px; border-radius: 4px;
+    border: 1px solid var(--line); background: var(--surface);
+    font-family: "SF Mono", ui-monospace, monospace;
+    font-size: 11px; color: var(--muted);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .hero { padding: 48px 24px 32px; }
+    .bar { padding: 12px 20px; }
+    .wrap { padding: 0 20px; }
+    .group-head { flex-wrap: wrap; }
+    .group-meta { margin-left: 0; width: 100%; justify-content: flex-end; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;margin-bottom:16px;font-size:12px;color:var(--teal-600);text-decoration:none;font-weight:600;background:var(--teal-50);border-radius:999px">← Back to brand kit</a>
+    <div class="eyebrow">Visit Bulgaria · Mobile App</div>
+    <h1>A UI sound kit, synthesised from scratch.</h1>
+    <p class="lede">31 original sounds across 8 categories — clicks, confirms, success, errors, toggles, navigation, notifications, and travel-branded signatures. No samples, no libraries, no third-party audio. Just mathematics and intent.</p>
+    <div class="hero-meta">
+      <span class="chip brand">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>
+        <b>31 sounds</b>
+      </span>
+      <span class="chip"><b>8 categories</b></span>
+      <span class="chip">16-bit · 44.1 kHz WAV</span>
+      <span class="chip">~653 KB zipped</span>
+    </div>
+    <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap">
+      <a href="../downloads/visit-bulgaria-sounds.zip" download style="display:inline-flex;align-items:center;gap:10px;padding:13px 22px;background:var(--teal-600);color:#fff;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 10px 30px -10px var(--teal-600)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download all sounds
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.75">653 KB · ZIP</span>
+      </a>
+      <a href="../downloads/visit-bulgaria-brand-kit.zip" download style="display:inline-flex;align-items:center;gap:10px;padding:13px 22px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:600;text-decoration:none">
+        Everything (icons + sounds)
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">2.8 MB</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<nav class="bar">
+  <div class="bar-inner">
+    <label class="search" id="searchWrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>
+      <input type="text" id="search" placeholder="Search sounds…" />
+      <span class="clear" id="clear">clear</span>
+    </label>
+    <div class="vol">
+      <label>Vol</label>
+      <input type="range" id="vol" min="0" max="100" value="80" />
+    </div>
+    <button class="btn ghost" id="stopAll" title="Press Space to stop">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+      Stop <span class="kbd">␣</span>
+    </button>
+    <span class="chip brand" title="All 31 .wav files are in this folder next to index.html">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>
+      <b>Kit ready · 31 sounds in this folder</b>
+    </span>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div id="groups"></div>
+  <div class="empty" id="empty">
+    <h3>No sounds match that search.</h3>
+    <p>Try a different keyword, or clear the search to see everything.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="foot">
+    <p>
+      <span class="brand-name">© 2026 Kristian Kostadinov.</span>
+      All rights reserved. Licensed exclusively for use within the Visit Bulgaria mobile app, website, and official Visit Bulgaria brand properties. Third-party licence enquiries:
+      <a href="mailto:kristian@fasttrack-europe.com">kristian@fasttrack-europe.com</a>.
+    </p>
+    <div class="foot-links">
+      <a href="LICENSE.md">Licence</a>
+      <a href="README.md">Readme</a>
+      <a href="generate.py">Source</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const KIT = [
+  { group: 'clicks', num: '01', title: 'Clicks', desc: 'Neutral taps — use for every button press.', items: [
+    { file: 'click-soft.wav',  title: 'Click Soft',   desc: 'Neutral button tap · ~60ms',    tags: ['default'], featured: true },
+    { file: 'click-sharp.wav', title: 'Click Sharp',  desc: 'Crisp high tap · ~50ms',         tags: ['bright'] },
+    { file: 'click-deep.wav',  title: 'Click Deep',   desc: 'Physical, full-bodied · ~80ms',  tags: ['warm'] },
+    { file: 'click-tick.wav',  title: 'Click Tick',   desc: 'Typing-key tick · ~40ms',        tags: ['micro'] },
+  ]},
+  { group: 'confirm', num: '02', title: 'Confirms', desc: 'Positive feedback on small meaningful actions.', items: [
+    { file: 'confirm-pop.wav',      title: 'Confirm Pop',      desc: 'Soft pop · 150ms',                 tags: ['pop'] },
+    { file: 'confirm-chime.wav',    title: 'Confirm Chime',    desc: 'Two-tone ascending C5→G5',         tags: ['chime'] },
+    { file: 'confirm-soft-tap.wav', title: 'Confirm Soft Tap', desc: 'Double-pluck — great for mark-visited', tags: ['mark visited'], featured: true },
+  ]},
+  { group: 'success', num: '03', title: 'Success', desc: 'Bigger accomplishments — save, complete, unlock.', items: [
+    { file: 'success-short.wav',    title: 'Success Short',    desc: 'Quick two-note positive',           tags: ['short'] },
+    { file: 'success-arpeggio.wav', title: 'Success Arpeggio', desc: 'C–E–G rising arpeggio',             tags: ['arpeggio'] },
+    { file: 'success-big.wav',      title: 'Success Big',      desc: 'Triumphant 4-note C–E–G–C',         tags: ['large'] },
+    { file: 'login-success.wav',    title: 'Login Success',    desc: 'Sparkly unlock · G–C–E',            tags: ['login'], featured: true },
+  ]},
+  { group: 'error', num: '04', title: 'Errors & Destructive', desc: 'Negative feedback. Be sparing.', items: [
+    { file: 'error-minor.wav',   title: 'Error Minor',   desc: 'Minor 2nd dissonance · 300ms',  tags: ['dissonant'] },
+    { file: 'error-buzz.wav',    title: 'Error Buzz',    desc: 'Short detuned low buzz',        tags: ['buzz'] },
+    { file: 'delete-thud.wav',   title: 'Delete Thud',   desc: 'Low decisive drop',             tags: ['delete'], featured: true },
+    { file: 'delete-sharp.wav',  title: 'Delete Sharp',  desc: 'Downward pluck · quick',        tags: ['quick'] },
+    { file: 'warning.wav',       title: 'Warning',       desc: 'Attention tone — not alarming', tags: ['attention'] },
+  ]},
+  { group: 'toggle', num: '05', title: 'Toggles & Selection', desc: 'State changes and pick/drop feedback.', items: [
+    { file: 'toggle-on.wav',   title: 'Toggle On',   desc: 'Upward pluck E5→A5',        tags: ['up'] },
+    { file: 'toggle-off.wav',  title: 'Toggle Off',  desc: 'Downward pluck A5→E5',      tags: ['down'] },
+    { file: 'select.wav',      title: 'Select',      desc: 'Subtle high pick · 80ms',   tags: ['micro'] },
+    { file: 'deselect.wav',    title: 'Deselect',    desc: 'Subtle low release · 80ms', tags: ['micro'] },
+  ]},
+  { group: 'nav', num: '06', title: 'Navigation & Transitions', desc: 'Page transitions, swipes, back gestures.', items: [
+    { file: 'swoosh.wav',       title: 'Swoosh',       desc: 'Page transition 300→1200Hz',    tags: ['sweep'] },
+    { file: 'swipe-soft.wav',   title: 'Swipe Soft',   desc: 'Very subtle whoosh',            tags: ['subtle'] },
+    { file: 'back.wav',         title: 'Back',         desc: 'Descending — retreat/close',    tags: ['down'] },
+    { file: 'refresh.wav',      title: 'Refresh',      desc: 'Upward sweep — reload',         tags: ['up'] },
+  ]},
+  { group: 'notify', num: '07', title: 'Notifications', desc: 'Incoming alerts and system messages.', items: [
+    { file: 'notify-gentle.wav',  title: 'Notify Gentle',  desc: 'Single soft G5 tone',     tags: ['single'] },
+    { file: 'notify-message.wav', title: 'Notify Message', desc: 'Two-tone D5→F#5',         tags: ['dual'] },
+    { file: 'alert.wav',          title: 'Alert',          desc: 'Triple-tick urgent',       tags: ['urgent'] },
+  ]},
+  { group: 'brand', num: '08', title: 'Brand · Travel-themed', desc: 'Signatures unique to Visit Bulgaria.', items: [
+    { file: 'passport-stamp.wav', title: 'Passport Stamp', desc: 'Thud + crunch + tiny chime — the mark-visited signature', tags: ['mark visited', 'brand'], featured: true },
+    { file: 'day-complete.wav',   title: 'Day Complete',   desc: '4-note fanfare — all destinations in a day',             tags: ['brand'] },
+    { file: 'route-complete.wav', title: 'Route Complete', desc: '5-note ascending — entire route done',                   tags: ['big win', 'brand'], featured: true },
+  ]},
+];
+
+const groupsEl = document.getElementById('groups');
+const emptyEl  = document.getElementById('empty');
+const searchEl = document.getElementById('search');
+const clearEl  = document.getElementById('clear');
+const searchWrap = document.getElementById('searchWrap');
+const volEl    = document.getElementById('vol');
+
+let currentAudio = null;
+let currentCard  = null;
+const audioCache = {};
+
+// ─── Audio control ───
+function playSound(file, cardEl) {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    if (currentCard) currentCard.classList.remove('playing');
+  }
+  const audio = audioCache[file] || (audioCache[file] = new Audio(file));
+  audio.volume = volEl.value / 100;
+  audio.currentTime = 0;
+  audio.play().catch(() => {});
+  currentAudio = audio;
+  currentCard  = cardEl;
+  cardEl.classList.add('playing');
+  audio.onended = () => cardEl.classList.remove('playing');
+}
+function stopAll() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+  if (currentCard) currentCard.classList.remove('playing');
+  currentAudio = null; currentCard = null;
+}
+function playGroup(items) {
+  stopAll();
+  let i = 0;
+  const next = () => {
+    if (i >= items.length) return;
+    const item = items[i++];
+    const card = document.getElementById('card-' + item.file);
+    if (!card || card.classList.contains('hidden')) return next();
+    const audio = audioCache[item.file] || (audioCache[item.file] = new Audio(item.file));
+    audio.volume = volEl.value / 100;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+    if (currentCard) currentCard.classList.remove('playing');
+    card.classList.add('playing');
+    currentAudio = audio; currentCard = card;
+    audio.onended = () => {
+      card.classList.remove('playing');
+      setTimeout(next, 250);
+    };
+  };
+  next();
+}
+
+// ─── Render ───
+const playIcon = `<svg class="play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+const pulseIcon = `<svg class="pulse" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 12h3M9 6v12M15 4v16M21 12h-3"/></svg>`;
+const downloadIcon = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>`;
+
+for (const grp of KIT) {
+  const section = document.createElement('section');
+  section.className = 'group'; section.id = 'g-' + grp.group;
+  section.innerHTML = `
+    <div class="group-head">
+      <div>
+        <div class="group-number">${grp.num} · ${String(grp.items.length).padStart(2, '0')} sounds</div>
+        <h2 class="group-title">${grp.title}</h2>
+        <p class="group-desc">${grp.desc}</p>
+      </div>
+      <div class="group-meta">
+        <button class="play-group" data-group="${grp.group}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Play all
+        </button>
+      </div>
+    </div>
+    <div class="grid"></div>
+  `;
+  const gridEl = section.querySelector('.grid');
+  for (const item of grp.items) {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.id = 'card-' + item.file;
+    card.dataset.search = (item.title + ' ' + item.desc + ' ' + item.file + ' ' + item.tags.join(' ')).toLowerCase();
+
+    const tagsHtml = item.tags.map(t => {
+      const cls = (item.featured && t === item.tags[0]) ? 'tag featured' : 'tag';
+      return `<span class="${cls}">${t}</span>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <button class="play-btn" data-file="${item.file}" aria-label="Play ${item.title}">
+          ${playIcon}${pulseIcon}
+        </button>
+        <div class="card-title-block">
+          <div class="card-title">${item.title}</div>
+          <div class="card-file">${item.file}</div>
+        </div>
+      </div>
+      <div class="card-desc">${item.desc}</div>
+      <div class="card-bottom">
+        <div class="tags">${tagsHtml}</div>
+        <a class="download" href="${item.file}" download onclick="event.stopPropagation()">
+          ${downloadIcon} .wav
+        </a>
+      </div>
+    `;
+    gridEl.appendChild(card);
+  }
+  section.querySelector('.play-group').addEventListener('click', (e) => {
+    e.stopPropagation(); playGroup(grp.items);
+  });
+  groupsEl.appendChild(section);
+}
+
+// ─── Interactions ───
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => {
+    const btn = card.querySelector('.play-btn');
+    playSound(btn.dataset.file, card);
+  });
+});
+document.querySelectorAll('.play-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const card = btn.closest('.card');
+    playSound(btn.dataset.file, card);
+  });
+});
+
+document.getElementById('stopAll').addEventListener('click', stopAll);
+
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+    e.preventDefault(); stopAll();
+  }
+});
+
+// ─── Search ───
+function applySearch(q) {
+  q = q.trim().toLowerCase();
+  searchWrap.classList.toggle('has-value', q.length > 0);
+  let anyVisible = false;
+  document.querySelectorAll('.card').forEach(c => {
+    const match = !q || c.dataset.search.includes(q);
+    c.classList.toggle('hidden', !match);
+    if (match) anyVisible = true;
+  });
+  // hide empty groups
+  document.querySelectorAll('.group').forEach(g => {
+    const visible = g.querySelectorAll('.card:not(.hidden)').length;
+    g.style.display = visible > 0 ? '' : 'none';
+  });
+  emptyEl.classList.toggle('visible', !anyVisible);
+}
+searchEl.addEventListener('input', e => applySearch(e.target.value));
+clearEl.addEventListener('click', () => { searchEl.value = ''; applySearch(''); searchEl.focus(); });
+
+// ─── Keyboard: "/" to focus search ───
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && e.target.tagName !== 'INPUT') {
+    e.preventDefault(); searchEl.focus();
+  }
+});
+</script>
+
+</body>
+</html>

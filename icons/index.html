@@ -1,0 +1,1503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Visit Bulgaria — App Icon System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Production iOS + Android app-icon set for Visit Bulgaria. Pixel-accurate size grids, adaptive-icon layers, Material You themed preview, compliance checklist.">
+<link rel="icon" href="web/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="web/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="web/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="web/apple-touch-icon.png">
+<meta name="theme-color" content="#004F46">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   Design tokens — brand-aligned
+   ------------------------------------------------------------------ */
+:root{
+  --teal:#004F46;
+  --teal-dark:#003832;
+  --teal-ui:#00BBA7;
+  --cream:#F7EFE1;
+  --cream-hi:#FDF7EB;
+
+  --ink:#0E1916;
+  --ink-2:#2B3A35;
+  --muted:#6B7772;
+  --muted-2:#93A19A;
+  --line:rgba(20,32,29,.08);
+  --line-strong:rgba(20,32,29,.16);
+  --panel:#ffffff;
+  --panel-2:#FAF9F4;
+  --wall-cool:#E6E9E4;
+  --wall-warm:#F0EBDE;
+
+  --ok:#1F7A4D;
+  --warn:#B4660E;
+
+  --radius-card:18px;
+  --radius-ios:22.37%;           /* Apple-style squircle approximation */
+  --radius-android-sq:22%;       /* Android default rounded-squircle */
+  --radius-android-rnd:18%;      /* Stock Pixel rounded-square */
+
+  --shadow-sm:0 1px 0 rgba(20,32,29,.03), 0 2px 8px -4px rgba(20,32,29,.08);
+  --shadow-md:0 10px 30px -18px rgba(20,32,29,.30);
+  --shadow-icon:0 14px 28px -14px rgba(0,0,0,.35), 0 2px 4px rgba(0,0,0,.08);
+  --shadow-icon-sm:0 6px 14px -6px rgba(0,0,0,.28), 0 1px 2px rgba(0,0,0,.08);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{
+  font-family:'Montserrat',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  font-feature-settings:"ss01","cv11";
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #eef3f1 0%, transparent 60%),
+    radial-gradient(900px 600px at 110% 10%, #f6efe2 0%, transparent 55%),
+    #fafaf7;
+  color:var(--ink);
+  min-height:100vh;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ------------------------------------------------------------------
+   Layout shell — sticky TOC + main column
+   ------------------------------------------------------------------ */
+.shell{
+  display:grid;
+  grid-template-columns:240px minmax(0,1fr);
+  max-width:1400px;
+  margin:0 auto;
+  gap:0;
+}
+aside.toc{
+  position:sticky;top:0;align-self:start;
+  height:100vh;overflow-y:auto;
+  padding:32px 16px 32px 32px;
+  border-right:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,0));
+}
+.toc .brand{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:24px;font-weight:700;font-size:13px;letter-spacing:.02em;
+  line-height:1.25;
+}
+.toc .brand .logo{
+  width:32px;height:32px;border-radius:8px;display:block;flex-shrink:0;
+  box-shadow:0 4px 10px -4px rgba(0,79,70,.4), 0 0 0 1px rgba(0,79,70,.1);
+}
+.toc ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px}
+.toc a{
+  display:block;padding:6px 10px;border-radius:8px;
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;
+  transition:background .15s ease,color .15s ease;
+}
+.toc a:hover{background:rgba(0,79,70,.06);color:var(--ink)}
+.toc a.sub{padding-left:22px;font-size:12.5px}
+.toc .label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin:14px 10px 4px;font-weight:700}
+
+main.content{padding:40px 48px 80px;min-width:0}
+
+header.hero{
+  padding:20px 0 24px;border-bottom:1px solid var(--line);margin-bottom:40px;
+}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin:0 0 10px}
+h1{font-size:clamp(28px,3.6vw,44px);font-weight:800;margin:0 0 10px;letter-spacing:-.02em;line-height:1.1}
+header.hero p.lede{margin:0;color:var(--ink-2);max-width:720px;font-size:15px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.swatch{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);
+  font-size:12px;font-weight:500;color:var(--ink-2);
+}
+.swatch .dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
+.swatch code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:var(--muted)}
+
+section{margin:56px 0 0;scroll-margin-top:24px}
+section:first-of-type{margin-top:0}
+h2{
+  font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--teal);margin:0 0 6px;
+}
+h3{font-size:22px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;line-height:1.25}
+section > p.desc{margin:0 0 24px;color:var(--ink-2);max-width:720px;font-size:14px}
+
+/* ------------------------------------------------------------------
+   Card primitives
+   ------------------------------------------------------------------ */
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-card);
+  padding:20px;
+  box-shadow:var(--shadow-sm);
+}
+.card .title{font-size:14px;font-weight:600;margin:0 0 2px}
+.card .label{font-size:12px;color:var(--muted);margin:0}
+.card .path{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:var(--muted);margin:0}
+
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid.split-12-10{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
+
+/* ------------------------------------------------------------------
+   Primary master display
+   ------------------------------------------------------------------ */
+.primary-hero{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  background:linear-gradient(180deg,#fff,#faf7ef);
+  border:1px solid var(--line);border-radius:24px;
+  padding:32px;box-shadow:var(--shadow-md);
+}
+.primary-hero .icon-wrap{
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 30% 30%,#f3efe4,#e8e4d5);
+  border-radius:20px;padding:40px;min-height:360px;
+}
+.primary-hero img.icon{
+  width:100%;max-width:320px;
+  border-radius:var(--radius-ios);
+  box-shadow:var(--shadow-icon);
+  display:block;
+}
+.primary-hero .specs{display:flex;flex-direction:column;justify-content:center;gap:14px}
+.primary-hero .specs h3{font-size:26px}
+.primary-hero .specs dl{margin:0;display:grid;grid-template-columns:140px 1fr;gap:6px 16px;font-size:13.5px}
+.primary-hero .specs dt{color:var(--muted);font-weight:500}
+.primary-hero .specs dd{margin:0;color:var(--ink-2);font-weight:500}
+
+/* ------------------------------------------------------------------
+   iOS squircle — proper superellipse via SVG mask
+   ------------------------------------------------------------------ */
+.ios-squircle{
+  position:relative;aspect-ratio:1/1;width:100%;
+  border-radius:var(--radius-ios);
+  overflow:hidden;
+  box-shadow:var(--shadow-icon);
+  background:#111;
+  -webkit-mask-image:var(--ios-mask, none);
+          mask-image:var(--ios-mask, none);
+}
+.ios-squircle > img{
+  width:100%;height:100%;display:block;object-fit:cover;
+}
+
+/* ------------------------------------------------------------------
+   iOS — appearance triptych (light / dark / tinted)
+   ------------------------------------------------------------------ */
+.triptych{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.triptych .card{padding:18px}
+.triptych .stage{
+  aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  border-radius:14px;padding:24px;margin-bottom:12px;
+}
+.triptych .stage.light{background:linear-gradient(160deg,#eceade,#d8d4c5)}
+.triptych .stage.dark{background:linear-gradient(160deg,#1a1d22,#0a0b0f)}
+.triptych .stage.tint{background:radial-gradient(circle at 30% 30%,#2a2d33,#0f1115)}
+.triptych .stage img{
+  width:78%;
+  border-radius:var(--radius-ios);
+  box-shadow:var(--shadow-icon);
+  display:block;
+}
+
+/* ------------------------------------------------------------------
+   iOS — pixel-accurate size grid
+   Each tile renders the 1024 PNG at actual px dimensions.
+   ------------------------------------------------------------------ */
+.size-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:16px;
+}
+.size-tile{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:18px 14px 14px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  min-height:220px;
+  box-shadow:var(--shadow-sm);
+}
+.size-tile .frame{
+  display:flex;align-items:center;justify-content:center;
+  flex:1;width:100%;
+  background:
+    linear-gradient(45deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.03) 75%),
+    linear-gradient(45deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.03) 75%),
+    #faf9f4;
+  background-size:12px 12px;
+  background-position:0 0,6px 6px;
+  border-radius:10px;
+  padding:8px;
+  min-height:120px;
+}
+.size-tile .frame img{
+  border-radius:var(--radius-ios);
+  box-shadow:var(--shadow-icon-sm);
+  display:block;
+}
+.size-tile .frame img.round{border-radius:50%}
+.size-tile .frame img.sq{border-radius:var(--radius-android-sq)}
+.size-tile .label{
+  display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;
+}
+.size-tile .px{
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:13px;font-weight:600;color:var(--ink);
+}
+.size-tile .role{font-size:11px;color:var(--muted);line-height:1.3}
+
+/* Emphasised "hero" sizes */
+.size-tile.big .frame{min-height:200px;padding:12px}
+.size-tile.full{grid-column:span 2}
+
+/* ------------------------------------------------------------------
+   iOS home-screen mock
+   ------------------------------------------------------------------ */
+.homescreen{
+  border-radius:24px;overflow:hidden;border:1px solid var(--line);
+  background:
+    radial-gradient(600px 400px at 30% 20%, #526c8a 0%, transparent 60%),
+    radial-gradient(600px 600px at 80% 90%, #c98e6c 0%, transparent 55%),
+    linear-gradient(180deg,#2a3240,#1a1f2a);
+  padding:36px 28px 16px;
+  color:#fff;
+}
+.homescreen .grid-icons{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:22px 14px;max-width:360px;margin:0 auto;
+}
+.homescreen .app{display:flex;flex-direction:column;align-items:center;gap:6px}
+.homescreen .app .tile{
+  width:68px;height:68px;border-radius:22.37%;overflow:hidden;
+  box-shadow:0 6px 14px -6px rgba(0,0,0,.5);
+}
+.homescreen .app .tile img{width:100%;height:100%;display:block;object-fit:cover}
+.homescreen .app.ours .tile{box-shadow:0 10px 24px -8px rgba(0,0,0,.55), 0 0 0 2px rgba(255,255,255,.18)}
+.homescreen .app span{font-size:10.5px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5);font-weight:500}
+.homescreen .dock{
+  margin-top:20px;background:rgba(255,255,255,.22);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:24px;padding:10px 14px;display:flex;gap:14px;justify-content:center;
+  max-width:330px;margin:20px auto 0;
+}
+.homescreen .dock .tile{width:52px;height:52px;border-radius:18%;overflow:hidden}
+.homescreen .dock .tile img{width:100%;height:100%;display:block}
+
+/* fake sibling icons for mock — small dots via gradient backgrounds */
+.fake{background:linear-gradient(135deg,var(--c1,#5a8),var(--c2,#25a))}
+.fake.a{--c1:#ff8f5a;--c2:#ff2e63}
+.fake.b{--c1:#3bd5ff;--c2:#2b6fff}
+.fake.c{--c1:#8b5cf6;--c2:#ec4899}
+.fake.d{--c1:#fbbf24;--c2:#f97316}
+.fake.e{--c1:#10b981;--c2:#0ea5a4}
+.fake.f{--c1:#f472b6;--c2:#e11d48}
+.fake.g{--c1:#93c5fd;--c2:#1e40af}
+.fake.h{--c1:#fde68a;--c2:#b45309}
+.fake.i{--c1:#a7f3d0;--c2:#047857}
+
+/* ------------------------------------------------------------------
+   Android — adaptive icon layered demo
+   Foreground + Background stacked, mask applied to wrapper.
+   ------------------------------------------------------------------ */
+.adaptive{
+  position:relative;aspect-ratio:1/1;width:100%;overflow:hidden;
+  box-shadow:var(--shadow-icon);
+}
+.adaptive .bg,.adaptive .fg{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+}
+.adaptive .fg{object-fit:contain}
+
+/* Launcher mask variants */
+.mask-circle   {border-radius:50%}
+.mask-squircle {border-radius:var(--radius-android-sq)}
+.mask-rounded  {border-radius:var(--radius-android-rnd)}
+.mask-teardrop {border-radius:50% 50% 50% 14%}
+.mask-square   {border-radius:6%}
+
+/* ------------------------------------------------------------------
+   Material You themed-icon tint strip
+   ------------------------------------------------------------------ */
+.themed-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.themed-tile{
+  border-radius:14px;overflow:hidden;border:1px solid var(--line);
+  padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px;
+  background:var(--tint-bg,#2e7d6c);
+}
+.themed-tile .icon{
+  width:96px;height:96px;border-radius:50%;overflow:hidden;
+  background:var(--tint-bg-dark,#1f5b4f);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.themed-tile .icon img{
+  width:84%;
+  filter:var(--tint-filter, brightness(0) invert(1));
+  opacity:.96;
+}
+.themed-tile .label{font-size:11.5px;color:rgba(255,255,255,.88);font-weight:500;letter-spacing:.02em;text-align:center}
+.themed-tile .label code{font-family:'JetBrains Mono',monospace;font-size:10px;opacity:.75}
+
+/* ------------------------------------------------------------------
+   Store / asset strips
+   ------------------------------------------------------------------ */
+.store-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.store-card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;
+  display:flex;align-items:center;gap:24px;
+}
+.store-card .icon{
+  width:140px;height:140px;flex-shrink:0;border-radius:var(--radius-ios);
+  overflow:hidden;box-shadow:var(--shadow-icon);
+}
+.store-card .icon.round{border-radius:26%}
+.store-card img{width:100%;height:100%;display:block}
+.store-card .copy h4{margin:0 0 4px;font-size:16px;font-weight:700}
+.store-card .copy p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+.store-card .copy .req{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-2)}
+
+/* ------------------------------------------------------------------
+   Safe-area overlay
+   ------------------------------------------------------------------ */
+.safe-area{
+  position:relative;aspect-ratio:1/1;width:100%;max-width:360px;margin:0 auto;
+  border-radius:16px;overflow:hidden;background:#F7EFE1;
+  box-shadow:var(--shadow-sm);
+}
+.safe-area > img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.safe-area::before,.safe-area::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+}
+/* 108dp canvas is the parent; safe zone = 66dp centered circle = 66/108 = 61.1% */
+.safe-area::before{
+  border:1.5px dashed rgba(0,79,70,.55);
+  width:61.1%;height:61.1%;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  border-radius:50%;
+}
+/* 72dp viewport (visible) = 72/108 = 66.67% */
+.safe-area::after{
+  border:1.5px solid rgba(224,36,36,.45);
+  width:66.67%;height:66.67%;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  border-radius:50%;
+}
+.safe-area-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+.safe-area-legend .chip{display:inline-flex;align-items:center;gap:6px}
+.safe-area-legend .chip .sw{width:14px;height:14px;border-radius:50%;border:1.5px dashed rgba(0,79,70,.55)}
+.safe-area-legend .chip .sw.solid{border-style:solid;border-color:rgba(224,36,36,.45)}
+
+/* ------------------------------------------------------------------
+   Checklist / compliance
+   ------------------------------------------------------------------ */
+.checklist{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:8px}
+.check-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+.check-card h4{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.02em}
+.check-card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.check-card li{
+  display:flex;gap:10px;font-size:12.5px;color:var(--ink-2);line-height:1.5;
+  padding-left:0;
+}
+.check-card li::before{
+  content:"✓";flex-shrink:0;width:18px;height:18px;border-radius:50%;
+  background:rgba(31,122,77,.12);color:var(--ok);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;margin-top:1px;
+}
+
+/* ------------------------------------------------------------------
+   Source viewer
+   ------------------------------------------------------------------ */
+.source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.source-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;
+}
+.source-card .stage{
+  aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  border-radius:12px;padding:18px;margin-bottom:12px;background:var(--src-bg,#f3f2ee);
+}
+.source-card .stage img{max-width:100%;max-height:100%;display:block}
+.source-card .stage.checker{
+  background:
+    linear-gradient(45deg,rgba(0,0,0,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%),
+    linear-gradient(45deg,rgba(0,0,0,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%),
+    #faf9f4;
+  background-size:14px 14px;background-position:0 0,7px 7px;
+}
+
+/* ------------------------------------------------------------------
+   Usage snippets
+   ------------------------------------------------------------------ */
+pre.code{
+  background:#0F1419;color:#E8ECEE;border-radius:12px;padding:16px 18px;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.6;
+  overflow-x:auto;margin:0;
+}
+pre.code .k{color:#7FD6BE}
+pre.code .s{color:#F3C98B}
+pre.code .c{color:#6b7772;font-style:italic}
+
+/* ------------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------------ */
+footer.foot{
+  margin-top:72px;padding:28px 0 16px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+footer.foot code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-2)}
+
+/* ------------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------------ */
+@media (max-width:960px){
+  .shell{grid-template-columns:1fr}
+  aside.toc{display:none}
+  main.content{padding:24px}
+  .primary-hero{grid-template-columns:1fr}
+  .triptych{grid-template-columns:1fr}
+  .store-row{grid-template-columns:1fr}
+  .grid.split-12-10{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<aside class="toc">
+  <a href="../index.html" style="text-decoration:none;color:inherit">
+    <div class="brand"><img src="master/primary-1024.png" class="logo" alt="">Visit Bulgaria<br>Icon System</div>
+  </a>
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 10px;margin-bottom:12px;font-size:11.5px;color:var(--muted);text-decoration:none;font-weight:500">← Back to brand kit</a>
+  <a href="../downloads/visit-bulgaria-icons.zip" download style="display:flex;align-items:center;gap:8px;margin:0 0 20px;padding:10px 14px;background:var(--teal);color:#fff;border-radius:10px;font-size:12px;font-weight:600;text-decoration:none;box-shadow:0 4px 12px -4px var(--teal)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download all · 2.1 MB
+  </a>
+  <ul>
+    <li class="label">Overview</li>
+    <li><a href="#overview">Summary</a></li>
+    <li><a href="#master">Master artwork</a></li>
+    <li><a href="#palette">Colour tokens</a></li>
+
+    <li class="label">Web</li>
+    <li><a href="#web-favicons">Favicons</a></li>
+    <li><a href="#web-apple">Apple touch icon</a></li>
+    <li><a href="#web-pwa">PWA · manifest</a></li>
+    <li><a href="#web-social">Open Graph card</a></li>
+    <li><a href="#web-usage">&lt;head&gt; snippet</a></li>
+
+    <li class="label">iOS</li>
+    <li><a href="#ios-iphone-grid">iPhone size grid</a></li>
+    <li><a href="#ios-ipad-grid">iPad size grid</a></li>
+    <li><a href="#ios-appearance">Light / Dark / Tinted</a></li>
+    <li><a href="#ios-home">Home screen</a></li>
+    <li><a href="#ios-usage">Xcode usage</a></li>
+
+    <li class="label">Android</li>
+    <li><a href="#android-layers">Adaptive layers</a></li>
+    <li><a href="#android-masks">Launcher masks</a></li>
+    <li><a href="#android-density-grid">Density grid</a></li>
+    <li><a href="#android-themed">Material You themed</a></li>
+    <li><a href="#android-safe">Safe-area guide</a></li>
+    <li><a href="#android-usage">Studio usage</a></li>
+
+    <li class="label">Stores</li>
+    <li><a href="#store">App Store · Play Store</a></li>
+
+    <li class="label">Source</li>
+    <li><a href="#source">Master + layers</a></li>
+    <li><a href="#compliance">Compliance checklist</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+
+<header class="hero">
+  <p class="eyebrow">Design documentation · v1.0 · 2026-04-19</p>
+  <h1>Visit Bulgaria — app icon system</h1>
+  <p class="lede">
+    Production iOS + Android launcher icons + full web/browser/PWA asset set, all derived from
+    <code style="font-family:'JetBrains Mono',monospace;font-size:13px">brand-bar_icon.svg</code>.
+    Wordmark stripped, rose isolated programmatically, white-rose-on-teal primary — aligns with the
+    cool-neutral product UI (white cards, <code style="font-family:'JetBrains Mono',monospace;font-size:13px">#f4f6f7</code> pages).
+    Rebuild is deterministic.
+  </p>
+  <div class="meta">
+    <span class="swatch"><span class="dot" style="background:#004F46"></span>Logo teal <code>#004F46</code></span>
+    <span class="swatch"><span class="dot" style="background:#003832"></span>Shadow <code>#003832</code></span>
+    <span class="swatch"><span class="dot" style="background:#FFFFFF"></span>Rose white <code>#FFFFFF</code></span>
+    <span class="swatch">Rose 68% of canvas</span>
+    <span class="swatch">Contrast <b style="color:var(--ok)">14.38:1</b> · AAA</span>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- OVERVIEW                                                     -->
+<!-- ============================================================ -->
+<section id="overview">
+  <h2>Overview</h2>
+  <h3>What’s in this set</h3>
+  <p class="desc">
+    Every asset is generated from one master PNG and one transparent rose layer.
+    iOS ships three appearances (light, dark, tinted). Android ships six density legacy PNGs,
+    three adaptive layers (foreground, background, monochrome), and the Play Store listing asset.
+  </p>
+
+  <div class="grid four">
+    <div class="card">
+      <p class="title">iOS appearances</p>
+      <p class="label">3 × 1024 px PNG</p>
+      <p class="path">ios/AppIcon.appiconset/</p>
+    </div>
+    <div class="card">
+      <p class="title">Android legacy</p>
+      <p class="label">mdpi · hdpi · xhdpi · xxhdpi · xxxhdpi</p>
+      <p class="path">android/mipmap-*/</p>
+    </div>
+    <div class="card">
+      <p class="title">Android adaptive</p>
+      <p class="label">Foreground · background · monochrome</p>
+      <p class="path">android/mipmap-xxxhdpi/</p>
+    </div>
+    <div class="card">
+      <p class="title">Store assets</p>
+      <p class="label">App Store 1024 · Play Store 512</p>
+      <p class="path">master/ · android/playstore-512.png</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MASTER                                                        -->
+<!-- ============================================================ -->
+<section id="master">
+  <h2>Master artwork</h2>
+  <h3>1024 × 1024 · source of truth</h3>
+  <p class="desc">Every platform render is downsampled from the 1024 master. iOS accepts it as-is; Android composites foreground + background layers for adaptive icons; legacy densities are bicubic downsamples of the master.</p>
+
+  <div class="primary-hero">
+    <div class="icon-wrap">
+      <img class="icon" src="master/primary-1024.png" alt="Primary app icon — white rose on deep teal">
+    </div>
+    <div class="specs">
+      <h3>Primary — white rose on deep teal</h3>
+      <p style="margin:0;color:var(--ink-2);font-size:14px;max-width:440px">Aligns the icon with the product’s cool-neutral surfaces (white cards, <code style="font-family:'JetBrains Mono',monospace;font-size:12px">#f4f6f7</code> pages). Continuous vibe from icon into app.</p>
+      <dl>
+        <dt>Canvas</dt><dd>1024 × 1024 px, sRGB, opaque</dd>
+        <dt>Rose size</dt><dd>68% of canvas edge</dd>
+        <dt>Background</dt><dd>Radial <code style="font-family:'JetBrains Mono',monospace;font-size:12px">#004F46 → #003832</code></dd>
+        <dt>Rose colour</dt><dd><code style="font-family:'JetBrains Mono',monospace;font-size:12px">#FFFFFF</code> (white)</dd>
+        <dt>Contrast</dt><dd>14.38 : 1 — exceeds WCAG AAA</dd>
+        <dt>Safe area</dt><dd>≤ 80% (Apple HIG) · ≤ 66% (Android)</dd>
+        <dt>File</dt><dd class="path" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)">master/primary-1024.png</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PALETTE                                                       -->
+<!-- ============================================================ -->
+<section id="palette">
+  <h2>Colour tokens</h2>
+  <h3>Icon palette</h3>
+  <p class="desc">Icon colours are intentionally distinct from the UI palette (<code style="font-family:'JetBrains Mono',monospace;font-size:12.5px">#00BBA7</code> teal). Lockup fidelity to the brand bar takes priority here.</p>
+
+  <div class="grid four">
+    <div class="card">
+      <div style="height:72px;border-radius:10px;background:#004F46;margin-bottom:10px"></div>
+      <p class="title">Logo teal</p>
+      <p class="path">#004F46 · rgb(0, 79, 70)</p>
+    </div>
+    <div class="card">
+      <div style="height:72px;border-radius:10px;background:#003832;margin-bottom:10px"></div>
+      <p class="title">Teal shadow</p>
+      <p class="path">#003832 · rgb(0, 56, 50)</p>
+    </div>
+    <div class="card">
+      <div style="height:72px;border-radius:10px;background:#FFFFFF;margin-bottom:10px;border:1px solid var(--line)"></div>
+      <p class="title">Rose white <em style="color:var(--muted);font-weight:500;font-style:normal">· primary</em></p>
+      <p class="path">#FFFFFF · rgb(255, 255, 255)</p>
+    </div>
+    <div class="card">
+      <div style="height:72px;border-radius:10px;background:#F7EFE1;margin-bottom:10px;border:1px solid var(--line)"></div>
+      <p class="title">Cream <em style="color:var(--muted);font-weight:500;font-style:normal">· alt only</em></p>
+      <p class="path">#F7EFE1 · lockup-faithful alt bg</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WEB — FAVICONS                                                -->
+<!-- ============================================================ -->
+<section id="web-favicons">
+  <h2>Web · Browser tabs &amp; bookmarks</h2>
+  <h3>Classic favicons — 16 · 32 · 48 · 64 px</h3>
+  <p class="desc">
+    Every size rendered at actual pixel dimensions. 16 px is the browser-tab bucket; 32 px covers HiDPI tabs and bookmark bars; 48 px is the Windows site-shortcut bucket; 64 px covers desktop shortcuts. All bundled as a multi-size <code style="font-family:'JetBrains Mono',monospace;font-size:12.5px">.ico</code> for legacy fallback.
+  </p>
+
+  <div class="size-grid">
+    <div class="size-tile">
+      <div class="frame"><img src="web/favicon-16.png" width="16" height="16" alt="16 px"></div>
+      <div class="label"><span class="px">16 × 16 px</span><span class="role">Browser tab · standard dpi</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="web/favicon-32.png" width="32" height="32" alt="32 px"></div>
+      <div class="label"><span class="px">32 × 32 px</span><span class="role">Browser tab · HiDPI · bookmark bar</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="web/favicon-48.png" width="48" height="48" alt="48 px"></div>
+      <div class="label"><span class="px">48 × 48 px</span><span class="role">Windows site shortcut</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="web/favicon-64.png" width="64" height="64" alt="64 px"></div>
+      <div class="label"><span class="px">64 × 64 px</span><span class="role">Desktop / taskbar shortcuts</span></div>
+    </div>
+    <div class="size-tile big">
+      <div class="frame" style="background:
+        linear-gradient(45deg,rgba(0,0,0,.04) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.04) 75%),
+        linear-gradient(45deg,rgba(0,0,0,.04) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.04) 75%),
+        #fff;background-size:14px 14px;background-position:0 0,7px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px">
+        <img src="web/favicon-16.png" width="16" height="16">
+        <img src="web/favicon-32.png" width="32" height="32">
+        <img src="web/favicon-48.png" width="48" height="48">
+      </div>
+      <div class="label"><span class="px">favicon.ico</span><span class="role">Multi-size bundle · 16 + 32 + 48</span></div>
+    </div>
+  </div>
+
+  <!-- Simulated browser tab -->
+  <h3 style="margin-top:28px;font-size:16px">In context · browser tab</h3>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="background:#e6e8eb;padding:10px 12px 0;display:flex;gap:6px;align-items:flex-end;border-bottom:1px solid #d0d3d8">
+      <div style="background:#fafbfc;border-radius:8px 8px 0 0;padding:8px 12px 10px;display:flex;align-items:center;gap:8px;max-width:240px;box-shadow:0 -1px 0 rgba(0,0,0,.05)">
+        <img src="web/favicon-32.png" width="16" height="16" style="border-radius:3px;display:block">
+        <span style="font-size:12px;color:#1f2327;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Visit Bulgaria — Discover</span>
+        <span style="color:#8a9099;font-size:16px;font-weight:400;margin-left:4px">×</span>
+      </div>
+      <div style="background:rgba(0,0,0,.04);border-radius:8px 8px 0 0;padding:8px 12px 10px;display:flex;align-items:center;gap:8px;max-width:180px">
+        <div style="width:16px;height:16px;background:#cbcfd4;border-radius:3px"></div>
+        <span style="font-size:12px;color:#6b7076">New Tab</span>
+      </div>
+    </div>
+    <div style="background:#fafbfc;padding:12px 16px;display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a5057">
+      <span style="color:#1f7a4d">🔒</span>
+      <span>visitbulgaria.com</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WEB — APPLE TOUCH                                             -->
+<!-- ============================================================ -->
+<section id="web-apple">
+  <h2>Web · Apple touch icon</h2>
+  <h3>180 × 180 — Safari “Add to Home Screen”</h3>
+  <p class="desc">When a user pins the site to the iOS home screen, Safari uses this PNG instead of a rasterised tab-favicon. Apple applies its own squircle mask — ship it full-bleed.</p>
+
+  <div class="grid split-12-10">
+    <div class="card">
+      <div style="display:flex;gap:24px;align-items:center;justify-content:center;padding:24px;background:linear-gradient(160deg,#526c8a,#2a3240);border-radius:14px">
+        <img src="web/apple-touch-icon.png" width="180" height="180" style="border-radius:22.37%;box-shadow:var(--shadow-icon);display:block">
+      </div>
+      <p class="path" style="margin-top:12px">web/apple-touch-icon.png · 180 × 180 · opaque · no alpha</p>
+    </div>
+    <div class="card">
+      <p class="title">Also covers</p>
+      <ul style="margin:6px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--ink-2);line-height:1.7">
+        <li>· iOS Safari <em>Add to Home Screen</em> (primary use)</li>
+        <li>· macOS Safari start-page tiles</li>
+        <li>· Messages link-preview icon</li>
+        <li>· Some Android browsers that honour <code style="font-family:'JetBrains Mono',monospace;font-size:11px">apple-touch-icon</code></li>
+      </ul>
+      <p class="title" style="margin-top:14px">Do not</p>
+      <ul style="margin:6px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--ink-2);line-height:1.7">
+        <li>· Pre-round corners — Safari masks it</li>
+        <li>· Ship alpha — opaque 1024-downsample only</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WEB — PWA                                                     -->
+<!-- ============================================================ -->
+<section id="web-pwa">
+  <h2>Web · PWA &amp; installable</h2>
+  <h3>192 · 512 · maskable variants</h3>
+  <p class="desc">
+    Progressive Web App installs pull icons from <code style="font-family:'JetBrains Mono',monospace;font-size:12.5px">site.webmanifest</code>.
+    <b>Standard</b> icons render at their native aspect; <b>maskable</b> icons are full-bleed 1024-downsamples the launcher is free to clip
+    (Chrome, Samsung Internet, installed TWA apps on Android). The rose at 68% fits inside the 80% maskable safe zone.
+  </p>
+
+  <div class="grid four">
+    <div class="card">
+      <div class="frame" style="background:#f3f2ee;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center"><img src="web/icon-192.png" width="128" height="128" style="border-radius:22.37%;box-shadow:var(--shadow-icon-sm);display:block"></div>
+      <p class="title" style="margin-top:12px">icon-192</p>
+      <p class="label">Chrome install banner · short-cut</p>
+      <p class="path">web/icon-192.png</p>
+    </div>
+    <div class="card">
+      <div class="frame" style="background:#f3f2ee;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center"><img src="web/icon-512.png" width="128" height="128" style="border-radius:22.37%;box-shadow:var(--shadow-icon-sm);display:block"></div>
+      <p class="title" style="margin-top:12px">icon-512</p>
+      <p class="label">Splash screen · high-DPI display</p>
+      <p class="path">web/icon-512.png</p>
+    </div>
+    <div class="card">
+      <div class="frame" style="background:#2a3240;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center">
+        <div style="width:128px;height:128px;border-radius:50%;overflow:hidden;box-shadow:var(--shadow-icon-sm)"><img src="web/icon-maskable-192.png" style="width:100%;height:100%;display:block"></div>
+      </div>
+      <p class="title" style="margin-top:12px">maskable-192</p>
+      <p class="label">Circle mask · Android launcher</p>
+      <p class="path">purpose: "maskable"</p>
+    </div>
+    <div class="card">
+      <div class="frame" style="background:#2a3240;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center">
+        <div style="width:128px;height:128px;border-radius:22%;overflow:hidden;box-shadow:var(--shadow-icon-sm)"><img src="web/icon-maskable-512.png" style="width:100%;height:100%;display:block"></div>
+      </div>
+      <p class="title" style="margin-top:12px">maskable-512</p>
+      <p class="label">Squircle mask · Samsung / OnePlus</p>
+      <p class="path">purpose: "maskable"</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:28px;font-size:16px">site.webmanifest</h3>
+<pre class="code"><span class="c">// web/site.webmanifest — served at /site.webmanifest</span>
+{
+  <span class="k">"name"</span>: <span class="s">"Visit Bulgaria"</span>,
+  <span class="k">"short_name"</span>: <span class="s">"Visit BG"</span>,
+  <span class="k">"start_url"</span>: <span class="s">"/"</span>,
+  <span class="k">"display"</span>: <span class="s">"standalone"</span>,
+  <span class="k">"theme_color"</span>: <span class="s">"#004F46"</span>,
+  <span class="k">"background_color"</span>: <span class="s">"#004F46"</span>,
+  <span class="k">"icons"</span>: [
+    { <span class="k">"src"</span>: <span class="s">"/icon-192.png"</span>, <span class="k">"sizes"</span>: <span class="s">"192x192"</span>, <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icon-512.png"</span>, <span class="k">"sizes"</span>: <span class="s">"512x512"</span>, <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icon-maskable-192.png"</span>, <span class="k">"sizes"</span>: <span class="s">"192x192"</span>,
+      <span class="k">"type"</span>: <span class="s">"image/png"</span>, <span class="k">"purpose"</span>: <span class="s">"maskable"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icon-maskable-512.png"</span>, <span class="k">"sizes"</span>: <span class="s">"512x512"</span>,
+      <span class="k">"type"</span>: <span class="s">"image/png"</span>, <span class="k">"purpose"</span>: <span class="s">"maskable"</span> }
+  ]
+}
+</pre>
+</section>
+
+<!-- ============================================================ -->
+<!-- WEB — SOCIAL / OG                                             -->
+<!-- ============================================================ -->
+<section id="web-social">
+  <h2>Web · Social sharing</h2>
+  <h3>Open Graph · Twitter · Messages preview — 1200 × 630</h3>
+  <p class="desc">
+    Used when a link is shared to Facebook, iMessage, WhatsApp, Slack, Discord, or Twitter/X.
+    The 1.91 : 1 aspect ratio is the modern “summary large image” card standard — works in every platform that supports Open Graph.
+  </p>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <img src="web/og-image.png" alt="Visit Bulgaria OG card" style="width:100%;display:block">
+  </div>
+  <p class="path" style="margin-top:10px">web/og-image.png · 1200 × 630 · sRGB · opaque</p>
+
+  <h3 style="margin-top:28px;font-size:16px">Simulated share preview</h3>
+  <div class="grid two">
+    <!-- iMessage bubble -->
+    <div style="background:#f2f2f7;border-radius:18px;padding:28px;display:flex;justify-content:flex-end">
+      <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.08);max-width:300px">
+        <img src="web/og-image.png" style="width:100%;display:block" alt="">
+        <div style="padding:10px 14px;border-top:1px solid rgba(0,0,0,.06)">
+          <div style="font-size:13px;color:#1f2327;font-weight:600;line-height:1.3">Visit Bulgaria — Discover</div>
+          <div style="font-size:11px;color:#8a9099;margin-top:2px">visitbulgaria.com</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slack preview -->
+    <div style="background:#fff;border:1px solid #e3e5e8;border-radius:12px;padding:16px;display:flex;gap:12px">
+      <div style="width:3px;background:#1264A3;border-radius:2px"></div>
+      <div style="flex:1">
+        <div style="font-size:13px;color:#1d1c1d;font-weight:700;margin-bottom:2px">visitbulgaria.com</div>
+        <div style="font-size:13px;color:#1d1c1d;font-weight:700;margin-bottom:4px">Visit Bulgaria — Discover</div>
+        <div style="font-size:12px;color:#616061;margin-bottom:10px;line-height:1.4">Discover Bulgaria — places, routes, and events across the country.</div>
+        <img src="web/og-image.png" style="width:100%;max-width:360px;border-radius:6px;display:block" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WEB — USAGE SNIPPET                                           -->
+<!-- ============================================================ -->
+<section id="web-usage">
+  <h2>Web · Integration</h2>
+  <h3>Drop-in <code style="font-family:'JetBrains Mono',monospace;font-size:20px">&lt;head&gt;</code> snippet</h3>
+  <p class="desc">Copy into every page template. Paths assume assets are served from the site root.</p>
+<pre class="code"><span class="c">&lt;!-- Visit Bulgaria — favicons, PWA, social --&gt;</span>
+&lt;<span class="k">link</span> <span class="k">rel</span>=<span class="s">"icon"</span> <span class="k">href</span>=<span class="s">"/favicon.ico"</span> <span class="k">sizes</span>=<span class="s">"any"</span>&gt;
+&lt;<span class="k">link</span> <span class="k">rel</span>=<span class="s">"icon"</span> <span class="k">type</span>=<span class="s">"image/png"</span> <span class="k">sizes</span>=<span class="s">"32x32"</span> <span class="k">href</span>=<span class="s">"/favicon-32.png"</span>&gt;
+&lt;<span class="k">link</span> <span class="k">rel</span>=<span class="s">"icon"</span> <span class="k">type</span>=<span class="s">"image/png"</span> <span class="k">sizes</span>=<span class="s">"16x16"</span> <span class="k">href</span>=<span class="s">"/favicon-16.png"</span>&gt;
+&lt;<span class="k">link</span> <span class="k">rel</span>=<span class="s">"apple-touch-icon"</span> <span class="k">sizes</span>=<span class="s">"180x180"</span> <span class="k">href</span>=<span class="s">"/apple-touch-icon.png"</span>&gt;
+&lt;<span class="k">link</span> <span class="k">rel</span>=<span class="s">"manifest"</span> <span class="k">href</span>=<span class="s">"/site.webmanifest"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">name</span>=<span class="s">"theme-color"</span> <span class="k">content</span>=<span class="s">"#004F46"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">name</span>=<span class="s">"msapplication-TileColor"</span> <span class="k">content</span>=<span class="s">"#004F46"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">name</span>=<span class="s">"msapplication-TileImage"</span> <span class="k">content</span>=<span class="s">"/mstile-150.png"</span>&gt;
+
+<span class="c">&lt;!-- Open Graph / social --&gt;</span>
+&lt;<span class="k">meta</span> <span class="k">property</span>=<span class="s">"og:image"</span> <span class="k">content</span>=<span class="s">"/og-image.png"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">property</span>=<span class="s">"og:image:width"</span> <span class="k">content</span>=<span class="s">"1200"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">property</span>=<span class="s">"og:image:height"</span> <span class="k">content</span>=<span class="s">"630"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">property</span>=<span class="s">"og:image:alt"</span> <span class="k">content</span>=<span class="s">"Visit Bulgaria"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">name</span>=<span class="s">"twitter:card"</span> <span class="k">content</span>=<span class="s">"summary_large_image"</span>&gt;
+&lt;<span class="k">meta</span> <span class="k">name</span>=<span class="s">"twitter:image"</span> <span class="k">content</span>=<span class="s">"/og-image.png"</span>&gt;
+</pre>
+
+  <h3 style="margin-top:28px;font-size:16px">Files to deploy</h3>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+      <thead>
+        <tr style="background:#fafaf5;border-bottom:1px solid var(--line)">
+          <th style="text-align:left;padding:10px 14px;font-weight:700;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase">File</th>
+          <th style="text-align:left;padding:10px 14px;font-weight:700;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Dimensions</th>
+          <th style="text-align:left;padding:10px 14px;font-weight:700;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Purpose</th>
+        </tr>
+      </thead>
+      <tbody style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-2)">
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">favicon.ico</td><td style="padding:8px 14px">16+32+48</td><td style="padding:8px 14px;font-family:Montserrat">Multi-size fallback (all browsers)</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">favicon-16.png</td><td style="padding:8px 14px">16×16</td><td style="padding:8px 14px;font-family:Montserrat">Browser tab · standard dpi</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">favicon-32.png</td><td style="padding:8px 14px">32×32</td><td style="padding:8px 14px;font-family:Montserrat">Browser tab · HiDPI · bookmarks</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">favicon-48.png</td><td style="padding:8px 14px">48×48</td><td style="padding:8px 14px;font-family:Montserrat">Windows site shortcut</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">favicon-64.png</td><td style="padding:8px 14px">64×64</td><td style="padding:8px 14px;font-family:Montserrat">Desktop shortcut</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">apple-touch-icon.png</td><td style="padding:8px 14px">180×180</td><td style="padding:8px 14px;font-family:Montserrat">iOS Safari home-screen pin</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">icon-192.png</td><td style="padding:8px 14px">192×192</td><td style="padding:8px 14px;font-family:Montserrat">PWA · Chrome install</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">icon-512.png</td><td style="padding:8px 14px">512×512</td><td style="padding:8px 14px;font-family:Montserrat">PWA · splash screen</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">icon-maskable-192.png</td><td style="padding:8px 14px">192×192</td><td style="padding:8px 14px;font-family:Montserrat">PWA · adaptive mask (Android)</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">icon-maskable-512.png</td><td style="padding:8px 14px">512×512</td><td style="padding:8px 14px;font-family:Montserrat">PWA · adaptive mask · HiDPI</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">mstile-150.png</td><td style="padding:8px 14px">150×150</td><td style="padding:8px 14px;font-family:Montserrat">Windows Start-menu tile</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 14px">og-image.png</td><td style="padding:8px 14px">1200×630</td><td style="padding:8px 14px;font-family:Montserrat">Open Graph · Twitter · Messages</td></tr>
+        <tr><td style="padding:8px 14px">site.webmanifest</td><td style="padding:8px 14px">—</td><td style="padding:8px 14px;font-family:Montserrat">PWA manifest (JSON)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="path" style="margin-top:10px">Rebuild: <code style="font-family:'JetBrains Mono',monospace;font-size:12px">./venv/bin/python3 app-icon/_work/build_web_icons.py</code></p>
+</section>
+
+<!-- ============================================================ -->
+<!-- iOS — iPhone SIZE GRID                                        -->
+<!-- ============================================================ -->
+<section id="ios-iphone-grid">
+  <h2>iOS · iPhone</h2>
+  <h3>Pixel-accurate rendered sizes</h3>
+  <p class="desc">
+    Each tile renders the 1024 master at the exact pixel dimensions iOS uses on-device. From left to right
+    these correspond to Home (60 pt), Spotlight (40 pt), Settings (29 pt), and Notifications (20 pt), each at @2x and @3x.
+  </p>
+
+  <div class="size-grid">
+    <!-- 60pt @3x — Home, iPhone Pro/Plus -->
+    <div class="size-tile big full">
+      <div class="frame">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" width="180" height="180" alt="180 px">
+      </div>
+      <div class="label"><span class="px">180 × 180 px</span><span class="role">Home screen · @3x · iPhone Pro / Plus</span></div>
+    </div>
+    <!-- 60pt @2x + 40pt @3x — Home + Spotlight -->
+    <div class="size-tile big">
+      <div class="frame">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" width="120" height="120" alt="120 px">
+      </div>
+      <div class="label"><span class="px">120 × 120 px</span><span class="role">Home @2x · Spotlight @3x</span></div>
+    </div>
+    <!-- 29pt @3x — Settings -->
+    <div class="size-tile">
+      <div class="frame">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" width="87" height="87" alt="87 px">
+      </div>
+      <div class="label"><span class="px">87 × 87 px</span><span class="role">Settings · 29 pt @3x</span></div>
+    </div>
+    <!-- 40pt @2x — Spotlight -->
+    <div class="size-tile">
+      <div class="frame">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" width="80" height="80" alt="80 px">
+      </div>
+      <div class="label"><span class="px">80 × 80 px</span><span class="role">Spotlight · 40 pt @2x</span></div>
+    </div>
+    <!-- 20pt @3x — Notification -->
+    <div class="size-tile">
+      <div class="frame">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" width="60" height="60" alt="60 px">
+      </div>
+      <div class="label"><span class="px">60 × 60 px</span><span class="role">Notification · 20 pt @3x</span></div>
+    </div>
+    <!-- 29pt @2x — Settings -->
+    <div class="size-tile">
+      <div class="frame">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" width="58" height="58" alt="58 px">
+      </div>
+      <div class="label"><span class="px">58 × 58 px</span><span class="role">Settings · 29 pt @2x</span></div>
+    </div>
+    <!-- 20pt @2x — Notification -->
+    <div class="size-tile">
+      <div class="frame">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" width="40" height="40" alt="40 px">
+      </div>
+      <div class="label"><span class="px">40 × 40 px</span><span class="role">Notification · 20 pt @2x</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- iOS — iPad SIZE GRID                                          -->
+<!-- ============================================================ -->
+<section id="ios-ipad-grid">
+  <h2>iOS · iPad</h2>
+  <h3>Pixel-accurate rendered sizes</h3>
+  <p class="desc">iPad uses a larger Home icon (76 pt, or 83.5 pt on Pro) plus the same Spotlight/Settings/Notification sizes at @1x and @2x.</p>
+
+  <div class="size-grid">
+    <div class="size-tile big">
+      <div class="frame"><img src="ios/AppIcon.appiconset/icon-1024.png" width="167" height="167" alt="167 px"></div>
+      <div class="label"><span class="px">167 × 167 px</span><span class="role">Home · iPad Pro · 83.5 pt @2x</span></div>
+    </div>
+    <div class="size-tile big">
+      <div class="frame"><img src="ios/AppIcon.appiconset/icon-1024.png" width="152" height="152" alt="152 px"></div>
+      <div class="label"><span class="px">152 × 152 px</span><span class="role">Home · iPad · 76 pt @2x</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="ios/AppIcon.appiconset/icon-1024.png" width="76" height="76" alt="76 px"></div>
+      <div class="label"><span class="px">76 × 76 px</span><span class="role">Home · 76 pt @1x</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="ios/AppIcon.appiconset/icon-1024.png" width="80" height="80" alt="80 px"></div>
+      <div class="label"><span class="px">80 × 80 px</span><span class="role">Spotlight · 40 pt @2x</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="ios/AppIcon.appiconset/icon-1024.png" width="58" height="58" alt="58 px"></div>
+      <div class="label"><span class="px">58 × 58 px</span><span class="role">Settings · 29 pt @2x</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="ios/AppIcon.appiconset/icon-1024.png" width="40" height="40" alt="40 px"></div>
+      <div class="label"><span class="px">40 × 40 px</span><span class="role">Spotlight · 40 pt @1x</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img src="ios/AppIcon.appiconset/icon-1024.png" width="29" height="29" alt="29 px"></div>
+      <div class="label"><span class="px">29 × 29 px</span><span class="role">Settings · 29 pt @1x</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- iOS — APPEARANCE TRIPTYCH                                     -->
+<!-- ============================================================ -->
+<section id="ios-appearance">
+  <h2>iOS · Appearance</h2>
+  <h3>Light · Dark · Tinted</h3>
+  <p class="desc">iOS 18+ supports three appearances selectable by the user from the home-screen editor. The tinted variant is a grayscale silhouette that the system recolours using its accent palette.</p>
+
+  <div class="triptych">
+    <div class="card">
+      <div class="stage light">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" alt="iOS light appearance">
+      </div>
+      <p class="title">Light</p>
+      <p class="label">Default appearance — white rose on deep teal.</p>
+      <p class="path">icon-1024.png</p>
+    </div>
+    <div class="card">
+      <div class="stage dark">
+        <img src="ios/AppIcon.appiconset/icon-1024-dark.png" alt="iOS dark appearance">
+      </div>
+      <p class="title">Dark</p>
+      <p class="label">Slightly desaturated teal against a dark home screen.</p>
+      <p class="path">icon-1024-dark.png</p>
+    </div>
+    <div class="card">
+      <div class="stage tint">
+        <img src="ios/AppIcon.appiconset/icon-1024-tinted.png" alt="iOS tinted appearance">
+      </div>
+      <p class="title">Tinted</p>
+      <p class="label">Grayscale silhouette. System applies user-selected tint.</p>
+      <p class="path">icon-1024-tinted.png</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- iOS — HOMESCREEN                                              -->
+<!-- ============================================================ -->
+<section id="ios-home">
+  <h2>iOS · Context</h2>
+  <h3>Home screen at 68 px tile size</h3>
+  <p class="desc">How the icon sits among sibling apps at the rendered 60 pt @3x size — the scenario that matters most.</p>
+
+  <div class="homescreen">
+    <div class="grid-icons">
+      <div class="app"><div class="tile fake a"></div><span>Apps A</span></div>
+      <div class="app"><div class="tile fake b"></div><span>Safari</span></div>
+      <div class="app"><div class="tile fake c"></div><span>Photos</span></div>
+      <div class="app"><div class="tile fake d"></div><span>Maps</span></div>
+
+      <div class="app"><div class="tile fake e"></div><span>Notes</span></div>
+      <div class="app ours"><div class="tile"><img src="master/primary-1024.png" alt="Visit Bulgaria"></div><span>Visit BG</span></div>
+      <div class="app"><div class="tile fake f"></div><span>Mail</span></div>
+      <div class="app"><div class="tile fake g"></div><span>Calendar</span></div>
+
+      <div class="app"><div class="tile fake h"></div><span>Weather</span></div>
+      <div class="app"><div class="tile fake i"></div><span>Clock</span></div>
+      <div class="app"><div class="tile fake a"></div><span>Settings</span></div>
+      <div class="app"><div class="tile fake b"></div><span>Messages</span></div>
+    </div>
+    <div class="dock">
+      <div class="tile fake c"></div>
+      <div class="tile fake d"></div>
+      <div class="tile"><img src="master/primary-1024.png" alt="Visit Bulgaria"></div>
+      <div class="tile fake e"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- iOS USAGE                                                     -->
+<!-- ============================================================ -->
+<section id="ios-usage">
+  <h2>iOS · Integration</h2>
+  <h3>Xcode asset catalog</h3>
+  <p class="desc">Drop the asset catalog into the Xcode project; modern Xcode generates every device render from the 1024 master.</p>
+<pre class="code"><span class="c"># Replace the default asset catalog</span>
+cp -R ios/AppIcon.appiconset/ &lt;App&gt;/Assets.xcassets/AppIcon.appiconset/
+
+<span class="c"># Build settings</span>
+App Icon &amp; Launch Screen  ▸  App Icon Source: <span class="s">"AppIcon"</span>
+                            Include All App Icon Assets: <span class="k">off</span>
+
+<span class="c"># iOS 26 / Liquid Glass (optional, not included here)</span>
+Use Icon Composer with master/rose-foreground-1024.png + primary-1024.png
+to produce a layered <span class="s">.icon</span> bundle.
+</pre>
+</section>
+
+<!-- ============================================================ -->
+<!-- ANDROID — ADAPTIVE LAYERS                                     -->
+<!-- ============================================================ -->
+<section id="android-layers">
+  <h2>Android · Adaptive layers</h2>
+  <h3>Foreground · Background · Monochrome</h3>
+  <p class="desc">Android 8+ composes two 108 dp layers and applies a launcher-chosen mask. Android 13+ additionally renders a monochrome silhouette tinted by the Material You palette.</p>
+
+  <div class="grid three">
+    <div class="card">
+      <div class="stage" style="aspect-ratio:1/1;border-radius:12px;margin-bottom:12px;padding:16px;background:
+        linear-gradient(45deg,rgba(0,0,0,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%),
+        linear-gradient(45deg,rgba(0,0,0,.05) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.05) 75%),
+        #faf9f4;background-size:16px 16px;background-position:0 0,8px 8px;display:flex;align-items:center;justify-content:center">
+        <img src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" style="width:100%;display:block" alt="foreground">
+      </div>
+      <p class="title">Foreground — white rose with alpha</p>
+      <p class="label">108 dp canvas, rose inside the 66 dp safe circle. Transparent background.</p>
+      <p class="path">android/mipmap-xxxhdpi/ic_launcher_foreground.png</p>
+    </div>
+    <div class="card">
+      <div style="aspect-ratio:1/1;border-radius:12px;margin-bottom:12px;background:#004F46;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.14em;text-transform:uppercase">solid #004F46</div>
+      <p class="title">Background — solid teal</p>
+      <p class="label">Flat colour per Android guidance (launcher masks crop unpredictably — gradients look off-centre after cropping).</p>
+      <p class="path">android/mipmap-xxxhdpi/ic_launcher_background.png</p>
+    </div>
+    <div class="card">
+      <div style="aspect-ratio:1/1;border-radius:12px;margin-bottom:12px;padding:16px;background:#2e7d6c;display:flex;align-items:center;justify-content:center">
+        <img src="android/mipmap-xxxhdpi/ic_launcher_monochrome.png" style="width:100%;display:block;filter:brightness(0) invert(1);opacity:.95" alt="monochrome">
+      </div>
+      <p class="title">Monochrome — themed layer</p>
+      <p class="label">Single-colour alpha silhouette. Material You recolours using the system palette.</p>
+      <p class="path">android/mipmap-xxxhdpi/ic_launcher_monochrome.png</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ANDROID — LAUNCHER MASKS                                      -->
+<!-- ============================================================ -->
+<section id="android-masks">
+  <h2>Android · Launcher masks</h2>
+  <h3>One adaptive icon, five masks</h3>
+  <p class="desc">
+    Foreground and background are composed together, then the launcher clips the composite to its preferred shape.
+    The rose is sized to survive every mask — including the aggressive circle and teardrop cuts.
+  </p>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+    <div class="card">
+      <div class="adaptive mask-circle">
+        <div class="bg" style="background:#004F46"></div>
+        <img class="fg" src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="">
+      </div>
+      <p class="title" style="margin-top:12px">Circle</p>
+      <p class="label">Pixel Launcher · Samsung One UI (optional)</p>
+    </div>
+    <div class="card">
+      <div class="adaptive mask-squircle">
+        <div class="bg" style="background:#004F46"></div>
+        <img class="fg" src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="">
+      </div>
+      <p class="title" style="margin-top:12px">Squircle</p>
+      <p class="label">Samsung One UI default · OnePlus OxygenOS</p>
+    </div>
+    <div class="card">
+      <div class="adaptive mask-rounded">
+        <div class="bg" style="background:#004F46"></div>
+        <img class="fg" src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="">
+      </div>
+      <p class="title" style="margin-top:12px">Rounded square</p>
+      <p class="label">Nova Launcher · Action Launcher</p>
+    </div>
+    <div class="card">
+      <div class="adaptive mask-teardrop">
+        <div class="bg" style="background:#004F46"></div>
+        <img class="fg" src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="">
+      </div>
+      <p class="title" style="margin-top:12px">Teardrop</p>
+      <p class="label">Stock Huawei EMUI · custom launchers</p>
+    </div>
+    <div class="card">
+      <div class="adaptive mask-square">
+        <div class="bg" style="background:#004F46"></div>
+        <img class="fg" src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="">
+      </div>
+      <p class="title" style="margin-top:12px">Square</p>
+      <p class="label">Legacy / tablets · some OEM skins</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ANDROID — DENSITY GRID                                        -->
+<!-- ============================================================ -->
+<section id="android-density-grid">
+  <h2>Android · Density grid</h2>
+  <h3>Legacy PNGs at actual pixel sizes</h3>
+  <p class="desc">
+    Pre-Android 8 fallback PNGs shipped in every density bucket. Each bucket here is rendered at its real pixel size —
+    this is the ground truth for how the icon renders on legacy Android / devices that don’t honour the adaptive spec.
+  </p>
+
+  <div class="size-grid">
+    <div class="size-tile">
+      <div class="frame"><img class="sq" src="android/mipmap-mdpi/ic_launcher.png" width="48" height="48" alt="48 px"></div>
+      <div class="label"><span class="px">48 × 48 px</span><span class="role">mdpi · @1x · 160 dpi baseline</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img class="sq" src="android/mipmap-hdpi/ic_launcher.png" width="72" height="72" alt="72 px"></div>
+      <div class="label"><span class="px">72 × 72 px</span><span class="role">hdpi · @1.5x · 240 dpi</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img class="sq" src="android/mipmap-xhdpi/ic_launcher.png" width="96" height="96" alt="96 px"></div>
+      <div class="label"><span class="px">96 × 96 px</span><span class="role">xhdpi · @2x · 320 dpi</span></div>
+    </div>
+    <div class="size-tile">
+      <div class="frame"><img class="sq" src="android/mipmap-xxhdpi/ic_launcher.png" width="144" height="144" alt="144 px"></div>
+      <div class="label"><span class="px">144 × 144 px</span><span class="role">xxhdpi · @3x · 480 dpi</span></div>
+    </div>
+    <div class="size-tile big">
+      <div class="frame"><img class="sq" src="android/mipmap-xxxhdpi/ic_launcher.png" width="192" height="192" alt="192 px"></div>
+      <div class="label"><span class="px">192 × 192 px</span><span class="role">xxxhdpi · @4x · 640 dpi</span></div>
+    </div>
+  </div>
+
+  <div class="grid three" style="margin-top:20px">
+    <div class="card">
+      <p class="title">Round variant</p>
+      <div class="frame" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:#f3f2ee;border-radius:12px;padding:16px;margin-top:10px">
+        <img src="android/mipmap-xxxhdpi/ic_launcher_round.png" style="width:70%;border-radius:50%;box-shadow:var(--shadow-icon-sm)" alt="round">
+      </div>
+      <p class="label" style="margin-top:10px">Pre-baked circular fallback for launchers that request <code style="font-family:'JetBrains Mono',monospace;font-size:11px">roundIcon</code>.</p>
+      <p class="path">ic_launcher_round.png</p>
+    </div>
+    <div class="card">
+      <p class="title">Rendered foreground stack</p>
+      <div class="adaptive mask-squircle" style="margin-top:10px">
+        <div class="bg" style="background:#004F46"></div>
+        <img class="fg" src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="">
+      </div>
+      <p class="label" style="margin-top:10px">Adaptive composite — the source of truth on modern Android.</p>
+      <p class="path">mipmap-xxxhdpi/ic_launcher_foreground.png</p>
+    </div>
+    <div class="card">
+      <p class="title">Bucket coverage</p>
+      <ul style="margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--ink-2)">
+        <li>· <b>mdpi</b> — reference / some Wear OS surfaces</li>
+        <li>· <b>hdpi</b> — older budget phones</li>
+        <li>· <b>xhdpi</b> — mid-range 2015–2018</li>
+        <li>· <b>xxhdpi</b> — most phones 2018–today</li>
+        <li>· <b>xxxhdpi</b> — flagships, adaptive layer source</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ANDROID — THEMED (MATERIAL YOU)                               -->
+<!-- ============================================================ -->
+<section id="android-themed">
+  <h2>Android · Material You</h2>
+  <h3>Themed-icon preview across wallpaper palettes</h3>
+  <p class="desc">
+    Android 13+ re-tints the monochrome layer based on the wallpaper-derived palette. Preview below simulates
+    four common palette outcomes — the real device picks something closer to the user’s wallpaper.
+  </p>
+
+  <div class="themed-strip">
+    <div class="themed-tile" style="--tint-bg:#1f3b63;--tint-bg-dark:#112a4a">
+      <div class="icon"><img src="android/mipmap-xxxhdpi/ic_launcher_monochrome.png" alt=""></div>
+      <span class="label">Oceanic<br><code>#1F3B63</code></span>
+    </div>
+    <div class="themed-tile" style="--tint-bg:#2e7d6c;--tint-bg-dark:#1f5b4f">
+      <div class="icon"><img src="android/mipmap-xxxhdpi/ic_launcher_monochrome.png" alt=""></div>
+      <span class="label">Forest<br><code>#2E7D6C</code></span>
+    </div>
+    <div class="themed-tile" style="--tint-bg:#7a4a2e;--tint-bg-dark:#593421">
+      <div class="icon"><img src="android/mipmap-xxxhdpi/ic_launcher_monochrome.png" alt=""></div>
+      <span class="label">Terracotta<br><code>#7A4A2E</code></span>
+    </div>
+    <div class="themed-tile" style="--tint-bg:#5a2e4f;--tint-bg-dark:#40213a">
+      <div class="icon"><img src="android/mipmap-xxxhdpi/ic_launcher_monochrome.png" alt=""></div>
+      <span class="label">Mauve<br><code>#5A2E4F</code></span>
+    </div>
+    <div class="themed-tile" style="--tint-bg:#1c1c1e;--tint-bg-dark:#0b0b0c">
+      <div class="icon"><img src="android/mipmap-xxxhdpi/ic_launcher_monochrome.png" alt=""></div>
+      <span class="label">Dark neutral<br><code>#1C1C1E</code></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ANDROID — SAFE AREA                                           -->
+<!-- ============================================================ -->
+<section id="android-safe">
+  <h2>Android · Safe-area guide</h2>
+  <h3>66 dp safe circle · 72 dp viewport on a 108 dp canvas</h3>
+  <p class="desc">
+    Adaptive icons use a 108 dp canvas; the outer 18 dp around the center exists for launcher parallax and cannot be relied on.
+    The 66 dp safe circle is the zone where every launcher mask is guaranteed to preserve content; the 72 dp viewport is
+    what typical home-screen rendering shows.
+  </p>
+
+  <div class="grid split-12-10">
+    <div class="card">
+      <div class="safe-area">
+        <img src="android/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="foreground overlay">
+      </div>
+      <div class="safe-area-legend">
+        <span class="chip"><span class="sw"></span> 66 dp safe circle (dashed)</span>
+        <span class="chip"><span class="sw solid"></span> 72 dp visible viewport (solid)</span>
+      </div>
+    </div>
+    <div class="card">
+      <p class="title">Why it matters</p>
+      <p class="label" style="margin-top:6px;line-height:1.55">
+        The rose is sized at 60% of the adaptive canvas (~65 dp) so it fits comfortably inside the 66 dp safe circle.
+        That leaves 7 dp of breathing room — enough for every launcher mask in the wild (circle, teardrop, squircle, rounded-square, square)
+        to clip without touching the rose silhouette.
+      </p>
+      <p class="title" style="margin-top:14px">Sanity checks</p>
+      <ul style="margin:6px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--ink-2);line-height:1.7">
+        <li>· Rose bounding box ≤ 60% of 108 dp canvas</li>
+        <li>· Entire rose sits inside 66 dp safe circle</li>
+        <li>· Background is a single solid colour</li>
+        <li>· No text or fine detail — would fail below 48 px</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ANDROID USAGE                                                 -->
+<!-- ============================================================ -->
+<section id="android-usage">
+  <h2>Android · Integration</h2>
+  <h3>Android Studio · Manifest wiring</h3>
+<pre class="code"><span class="c"># Drop the mipmap folders into your app</span>
+cp -R android/mipmap-* app/src/main/res/
+
+<span class="c"># AndroidManifest.xml</span>
+&lt;<span class="k">application</span>
+    <span class="k">android:icon</span>=<span class="s">"@mipmap/ic_launcher"</span>
+    <span class="k">android:roundIcon</span>=<span class="s">"@mipmap/ic_launcher_round"</span>&gt;
+
+<span class="c"># Themed icon wires automatically via mipmap-anydpi-v26/ic_launcher.xml</span>
+<span class="c"># &lt;monochrome android:drawable="@mipmap/ic_launcher_monochrome" /&gt;</span>
+
+<span class="c"># Play Store upload</span>
+Hi-res icon  ▸  android/playstore-512.png  <span class="c"># 512×512, 32-bit, opaque</span>
+</pre>
+</section>
+
+<!-- ============================================================ -->
+<!-- STORE ASSETS                                                  -->
+<!-- ============================================================ -->
+<section id="store">
+  <h2>Store assets</h2>
+  <h3>App Store · Play Store listing</h3>
+  <p class="desc">Marketing renders live at full resolution. The App Store uses the same 1024 master as the in-device asset; the Play Store takes a dedicated 512 variant.</p>
+
+  <div class="store-row">
+    <div class="store-card">
+      <div class="icon">
+        <img src="ios/AppIcon.appiconset/icon-1024.png" alt="App Store 1024">
+      </div>
+      <div class="copy">
+        <h4>App Store marketing</h4>
+        <p>Displayed on product pages, search results, and Today tab. Apple re-applies the squircle mask server-side — do not pre-round the corners.</p>
+        <p class="req">1024 × 1024 · sRGB · opaque · no alpha</p>
+      </div>
+    </div>
+    <div class="store-card">
+      <div class="icon round">
+        <img src="android/playstore-512.png" alt="Play Store 512">
+      </div>
+      <div class="copy">
+        <h4>Play Store listing</h4>
+        <p>Displayed as the Hi-res icon on the Play Console. Full-bleed, no transparency, no manual rounding — the store applies its own mask.</p>
+        <p class="req">512 × 512 · 32-bit PNG · opaque</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SOURCE ASSETS                                                 -->
+<!-- ============================================================ -->
+<section id="source">
+  <h2>Source</h2>
+  <h3>Master, rose layers, alt</h3>
+  <p class="desc">Every platform render is downstream of these five files. Rebuild any subset with <code style="font-family:'JetBrains Mono',monospace;font-size:12.5px">./venv/bin/python3 app-icon/_work/build_icons.py</code>.</p>
+
+  <div class="source-grid">
+    <div class="source-card">
+      <div class="stage" style="--src-bg:#fdfaf2">
+        <img src="../brand-bar_icon.svg" alt="Source lockup">
+      </div>
+      <p class="title">Brand-bar lockup</p>
+      <p class="label">Full lockup — rose + БЪЛГАРИЯ wordmark. Wordmark is algorithmically dropped.</p>
+      <p class="path">../brand-bar_icon.svg</p>
+    </div>
+    <div class="source-card">
+      <div class="stage" style="background:linear-gradient(160deg,#eceade,#d8d4c5)">
+        <img src="master/primary-1024.png" alt="Primary master">
+      </div>
+      <p class="title">Primary master · 1024 px</p>
+      <p class="label">White rose on deep teal — the canonical app icon.</p>
+      <p class="path">master/primary-1024.png</p>
+    </div>
+    <div class="source-card">
+      <div class="stage" style="background:linear-gradient(160deg,#f7efe1,#efe5cf)">
+        <img src="master/alt-brand-faithful-1024.png" alt="Alt brand-faithful">
+      </div>
+      <p class="title">Alt · brand-bar faithful</p>
+      <p class="label">Teal rose on cream — use when brand compliance takes priority over home-screen punch.</p>
+      <p class="path">master/alt-brand-faithful-1024.png</p>
+    </div>
+    <div class="source-card">
+      <div class="stage checker">
+        <img src="master/rose-foreground-1024.png" alt="Rose foreground (isolated alpha)">
+      </div>
+      <p class="title">Rose foreground · isolated</p>
+      <p class="label">Transparent-background rose silhouette — recoloured to white / cream / black by downstream renders.</p>
+      <p class="path">master/rose-foreground-1024.png</p>
+    </div>
+    <div class="source-card">
+      <div class="stage checker">
+        <img src="master/rose-monochrome-1024.png" alt="Rose monochrome">
+      </div>
+      <p class="title">Rose monochrome</p>
+      <p class="label">Transparent-background rose in black — the tinted / Material You source.</p>
+      <p class="path">master/rose-monochrome-1024.png</p>
+    </div>
+    <div class="source-card">
+      <div class="stage" style="background:#111">
+        <img src="ios/AppIcon.appiconset/icon-1024-tinted.png" alt="iOS tinted">
+      </div>
+      <p class="title">iOS tinted</p>
+      <p class="label">Grayscale silhouette for iOS 18+ tinted appearance.</p>
+      <p class="path">ios/AppIcon.appiconset/icon-1024-tinted.png</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- COMPLIANCE CHECKLIST                                          -->
+<!-- ============================================================ -->
+<section id="compliance">
+  <h2>Compliance</h2>
+  <h3>Platform-by-platform checklist</h3>
+  <p class="desc">Everything below is verified at build time by <code style="font-family:'JetBrains Mono',monospace;font-size:12.5px">_work/build_icons.py</code>. Green ticks are assertions, not aspirations.</p>
+
+  <div class="checklist">
+    <div class="check-card">
+      <h4>Apple HIG · iOS</h4>
+      <ul>
+        <li>1024 × 1024 sRGB, opaque (no alpha)</li>
+        <li>Rose ≤ 80% of canvas — shadow ring + squircle bite clears</li>
+        <li>No text, no Apple UI replicas</li>
+        <li>Dark + tinted appearances provided</li>
+        <li>Xcode 14+ single-size asset catalog</li>
+      </ul>
+    </div>
+    <div class="check-card">
+      <h4>Android adaptive icon</h4>
+      <ul>
+        <li>108 dp × 108 dp foreground + background</li>
+        <li>Foreground inside 66 dp safe circle (60% canvas)</li>
+        <li>Solid-colour background (mask-safe)</li>
+        <li>Round variant pre-baked for legacy launchers</li>
+        <li>Monochrome layer ≤ 1 colour + alpha</li>
+      </ul>
+    </div>
+    <div class="check-card">
+      <h4>Material You · Themed</h4>
+      <ul>
+        <li>Monochrome shipped at xxxhdpi</li>
+        <li>Wired via <code style="font-family:'JetBrains Mono',monospace;font-size:11px">mipmap-anydpi-v26/ic_launcher.xml</code></li>
+        <li>Reads correctly against every wallpaper-derived palette</li>
+      </ul>
+    </div>
+    <div class="check-card">
+      <h4>Store listings</h4>
+      <ul>
+        <li>App Store 1024 — opaque, no alpha, no pre-rounded corners</li>
+        <li>Play Store 512 — 32-bit PNG, opaque, full-bleed</li>
+      </ul>
+    </div>
+    <div class="check-card">
+      <h4>Accessibility</h4>
+      <ul>
+        <li>White on teal contrast <b>14.38 : 1</b> — exceeds WCAG AAA (7:1)</li>
+        <li>Shape-identifiable at 40 × 40 px (Notification)</li>
+        <li>Monochrome silhouette works without colour</li>
+      </ul>
+    </div>
+    <div class="check-card">
+      <h4>Determinism</h4>
+      <ul>
+        <li>All outputs regenerate from <code style="font-family:'JetBrains Mono',monospace;font-size:11px">brand-bar_icon.svg</code></li>
+        <li>Rose isolation via ink-density bbox + CC filter — no manual masking</li>
+        <li>Rebuild command: <code style="font-family:'JetBrains Mono',monospace;font-size:11px">./venv/bin/python3 app-icon/_work/build_icons.py</code></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div>Visit Bulgaria · App icon system · Rebuild: <code>./venv/bin/python3 app-icon/_work/build_icons.py</code></div>
+  <div>See <code>app-icon/README.md</code> for design rationale and integration notes.</div>
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Visit Bulgaria — Brand Kit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Visit Bulgaria brand kit — production iOS + Android + web icons and 31-sound UI kit. Downloadable, versioned, open to the team.">
+<link rel="icon" href="icons/web/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/web/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/web/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/web/apple-touch-icon.png">
+<meta name="theme-color" content="#004F46">
+<meta property="og:title" content="Visit Bulgaria — Brand Kit">
+<meta property="og:description" content="Icons + UI sound kit. Everything developers need.">
+<meta property="og:image" content="icons/web/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#004F46;
+  --teal-dark:#003832;
+  --teal-mid:#00675C;
+  --teal-light:#00BBA7;
+  --cream:#F7EFE1;
+  --ink:#0E1916;
+  --ink-2:#2B3A35;
+  --muted:#6B7772;
+  --muted-2:#93A19A;
+  --line:rgba(20,32,29,.08);
+  --panel:#ffffff;
+  --ok:#1F7A4D;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Montserrat',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #eef3f1 0%, transparent 60%),
+    radial-gradient(900px 600px at 110% 10%, #f6efe2 0%, transparent 55%),
+    #fafaf7;
+  color:var(--ink);
+  min-height:100vh;line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+
+/* ------------------------------------------------------------------ */
+/* Top nav                                                             */
+/* ------------------------------------------------------------------ */
+nav.top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 40px;max-width:1200px;margin:0 auto;
+}
+nav.top .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:14px}
+nav.top .brand img{width:32px;height:32px;border-radius:8px;box-shadow:0 4px 10px -4px rgba(0,79,70,.3), 0 0 0 1px rgba(0,79,70,.08)}
+nav.top ul{list-style:none;padding:0;margin:0;display:flex;gap:4px}
+nav.top a{
+  color:var(--ink-2);text-decoration:none;padding:8px 14px;border-radius:8px;
+  font-size:13px;font-weight:500;transition:background .15s;
+}
+nav.top a:hover{background:rgba(0,79,70,.06)}
+nav.top a.cta{
+  background:var(--teal);color:#fff;padding:9px 16px;
+  box-shadow:0 4px 12px -4px var(--teal);
+}
+nav.top a.cta:hover{background:var(--teal-mid)}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+header.hero{padding:40px 0 32px;text-align:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);
+  font-weight:700;margin:0 0 18px;
+}
+.eyebrow::before,.eyebrow::after{content:"";width:24px;height:1px;background:var(--teal)}
+h1{
+  font-size:clamp(38px,6vw,62px);font-weight:800;margin:0 0 16px;
+  letter-spacing:-.025em;line-height:1.05;
+}
+h1 .accent{
+  background:linear-gradient(135deg,var(--teal) 0%,var(--teal-light) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+header.hero p.lede{
+  margin:0 auto;color:var(--ink-2);max-width:640px;font-size:17px;line-height:1.55;
+}
+.hero-cta{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 24px;border-radius:999px;font-weight:600;font-size:14px;
+  text-decoration:none;transition:transform .12s,box-shadow .15s;
+  cursor:pointer;border:none;font-family:inherit;
+}
+.btn.primary{background:var(--teal);color:#fff;box-shadow:0 10px 30px -10px var(--teal)}
+.btn.primary:hover{transform:translateY(-1px);box-shadow:0 14px 36px -10px var(--teal)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 4px 12px -6px rgba(20,32,29,.15)}
+.btn.ghost:hover{border-color:var(--teal);color:var(--teal)}
+.btn .size{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;opacity:.7}
+.btn svg{width:16px;height:16px}
+
+/* ------------------------------------------------------------------ */
+/* Stat strip                                                          */
+/* ------------------------------------------------------------------ */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;
+  margin:48px auto 0;max-width:720px;
+}
+.stat{
+  background:rgba(255,255,255,.6);backdrop-filter:blur(8px);
+  border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;
+}
+.stat .n{font-size:28px;font-weight:800;color:var(--teal);letter-spacing:-.02em;line-height:1}
+.stat .l{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+
+/* ------------------------------------------------------------------ */
+/* Two-kit cards                                                       */
+/* ------------------------------------------------------------------ */
+section.kits{padding:80px 0 40px}
+.kit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.kit{
+  background:var(--panel);border:1px solid var(--line);border-radius:24px;
+  overflow:hidden;transition:transform .2s,box-shadow .2s;
+  display:flex;flex-direction:column;
+  box-shadow:0 1px 0 rgba(20,32,29,.02), 0 10px 30px -18px rgba(20,32,29,.12);
+}
+.kit:hover{transform:translateY(-4px);box-shadow:0 20px 40px -16px rgba(20,32,29,.22)}
+.kit .visual{
+  aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.kit.icons .visual{
+  background:
+    radial-gradient(circle at 30% 20%, #007a6d 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, #002824 0%, transparent 55%),
+    linear-gradient(180deg, var(--teal), var(--teal-dark));
+}
+.kit.icons .visual img{
+  width:40%;max-width:180px;
+  border-radius:22.37%;
+  box-shadow:0 24px 48px -16px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.08);
+}
+.kit.sounds .visual{
+  background:
+    radial-gradient(circle at 70% 20%, #3c8a7f 0%, transparent 55%),
+    radial-gradient(circle at 20% 80%, #002a25 0%, transparent 50%),
+    linear-gradient(180deg, var(--teal-mid), var(--teal));
+}
+/* Waveform visual for sounds card */
+.kit.sounds .visual .wave{
+  display:flex;align-items:center;gap:3px;height:80px;
+}
+.kit.sounds .visual .wave span{
+  display:block;width:4px;background:#fff;border-radius:2px;opacity:.9;
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.kit .meta{padding:32px 28px 28px;display:flex;flex-direction:column;gap:16px;flex:1}
+.kit .head{display:flex;justify-content:space-between;align-items:baseline}
+.kit .head h2{font-size:22px;font-weight:700;margin:0;letter-spacing:-.01em}
+.kit .head .count{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.kit p{margin:0;color:var(--ink-2);font-size:14px;line-height:1.55}
+.kit .tags{display:flex;gap:6px;flex-wrap:wrap}
+.kit .tag{
+  font-size:11px;padding:4px 10px;border-radius:999px;background:#f3f2ee;
+  color:var(--ink-2);font-weight:500;letter-spacing:.01em;
+}
+.kit .actions{
+  display:flex;gap:10px;margin-top:auto;padding-top:8px;
+}
+.kit .btn.sm{padding:10px 16px;font-size:13px}
+.kit .btn.primary.sm{flex:1;justify-content:center}
+.kit .btn.ghost.sm{flex-shrink:0}
+
+/* ------------------------------------------------------------------ */
+/* Quick-download table                                                */
+/* ------------------------------------------------------------------ */
+section.downloads{padding:40px 0 60px}
+section.downloads h3{font-size:22px;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+section.downloads p.sub{margin:0 0 24px;color:var(--muted);font-size:14px;max-width:560px}
+.dl-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:12px;
+}
+.dl-card{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:border-color .15s,transform .15s;
+}
+.dl-card:hover{border-color:var(--teal);transform:translateY(-2px)}
+.dl-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dl-card .top h4{margin:0;font-size:14px;font-weight:600;letter-spacing:-.005em}
+.dl-card .top .ext{
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);
+  padding:3px 8px;border-radius:6px;background:#f3f2ee;font-weight:600;
+  letter-spacing:.04em;
+}
+.dl-card p{margin:0;font-size:12px;color:var(--muted);line-height:1.5;flex:1}
+.dl-card .foot{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding-top:10px;border-top:1px solid var(--line);
+}
+.dl-card .size-m{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
+}
+.dl-card a.dl{
+  color:var(--teal);text-decoration:none;font-weight:600;font-size:12px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.dl-card a.dl:hover{text-decoration:underline}
+.dl-card a.dl svg{width:14px;height:14px}
+
+/* ------------------------------------------------------------------ */
+/* What's inside                                                       */
+/* ------------------------------------------------------------------ */
+section.inside{padding:40px 0 60px}
+.inside-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.inside-card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;
+}
+.inside-card h4{
+  margin:0 0 14px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--teal);font-weight:700;
+}
+.inside-card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.inside-card li{
+  font-size:13px;color:var(--ink-2);line-height:1.5;
+  display:flex;gap:10px;
+}
+.inside-card li::before{
+  content:"›";color:var(--teal);font-weight:700;flex-shrink:0;
+}
+.inside-card li b{color:var(--ink);font-weight:600}
+.inside-card li code{
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
+  background:#f7f6f1;padding:1px 6px;border-radius:4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* How-to-use                                                          */
+/* ------------------------------------------------------------------ */
+section.how{padding:40px 0 80px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;
+}
+.how-card .num{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(0,79,70,.08);color:var(--teal);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:13px;margin-bottom:12px;
+}
+.how-card h5{margin:0 0 6px;font-size:14px;font-weight:700}
+.how-card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
+.how-card code{
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;
+  background:#0F1419;color:#E8ECEE;padding:8px 10px;border-radius:8px;
+  display:block;margin-top:10px;overflow-x:auto;white-space:nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+footer{
+  border-top:1px solid var(--line);margin-top:60px;padding:40px 40px 60px;
+  color:var(--muted);font-size:13px;
+}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media (max-width:860px){
+  nav.top ul{display:none}
+  .wrap{padding:0 24px}
+  .kit-grid,.inside-grid,.how-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="brand">
+    <img src="icons/master/primary-1024.png" alt="">
+    Visit Bulgaria · Brand Kit
+  </div>
+  <ul>
+    <li><a href="icons/index.html">Icons</a></li>
+    <li><a href="sounds/index.html">Sounds</a></li>
+    <li><a href="#downloads">Downloads</a></li>
+    <li><a href="downloads/visit-bulgaria-brand-kit.zip" class="cta" download>Download all</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<header class="hero">
+  <h1>Everything devs need, in <span class="accent">one place</span></h1>
+  <p class="lede">
+    Production-ready launcher icons for iOS + Android + Web, plus a 31-sound UI kit — all derived from
+    the Visit Bulgaria brand-bar lockup. Self-contained, versioned, and regenerable from source.
+  </p>
+  <div class="hero-cta">
+    <a class="btn primary" href="downloads/visit-bulgaria-brand-kit.zip" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download everything
+      <span class="size">2.8 MB · ZIP</span>
+    </a>
+    <a class="btn ghost" href="#kits">Browse the kits</a>
+  </div>
+
+</header>
+
+<!-- ─────────────────────────────────────────────────────────── -->
+<!-- Two kits                                                     -->
+<!-- ─────────────────────────────────────────────────────────── -->
+<section class="kits" id="kits">
+  <div class="kit-grid">
+
+    <a class="kit icons" href="icons/index.html" style="text-decoration:none;color:inherit">
+      <div class="visual">
+        <img src="icons/master/primary-1024.png" alt="">
+      </div>
+      <div class="meta">
+        <div class="head">
+          <h2>Icon System</h2>
+          <span class="count">80+ assets</span>
+        </div>
+        <p>
+          Production launcher icons from the brand-bar lockup. White rose on deep teal, 14.38 : 1 contrast,
+          rose sized to survive every iOS squircle and Android adaptive mask.
+        </p>
+        <div class="tags">
+          <span class="tag">iOS · 3 appearances</span>
+          <span class="tag">Android adaptive</span>
+          <span class="tag">PWA · maskable</span>
+          <span class="tag">favicon · OG card</span>
+        </div>
+        <div class="actions">
+          <span class="btn primary sm">Open docs &nbsp;→</span>
+          <span class="btn ghost sm" onclick="event.stopPropagation();event.preventDefault();window.location.href='downloads/visit-bulgaria-icons.zip'" title="Download all icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <a class="kit sounds" href="sounds/index.html" style="text-decoration:none;color:inherit">
+      <div class="visual">
+        <div class="wave">
+          <span style="height:30%;animation-delay:0ms"></span>
+          <span style="height:55%;animation-delay:80ms"></span>
+          <span style="height:80%;animation-delay:160ms"></span>
+          <span style="height:95%;animation-delay:240ms"></span>
+          <span style="height:100%;animation-delay:320ms"></span>
+          <span style="height:80%;animation-delay:400ms"></span>
+          <span style="height:65%;animation-delay:480ms"></span>
+          <span style="height:45%;animation-delay:560ms"></span>
+          <span style="height:70%;animation-delay:640ms"></span>
+          <span style="height:90%;animation-delay:720ms"></span>
+          <span style="height:60%;animation-delay:800ms"></span>
+          <span style="height:40%;animation-delay:880ms"></span>
+          <span style="height:55%;animation-delay:960ms"></span>
+          <span style="height:75%;animation-delay:1040ms"></span>
+          <span style="height:50%;animation-delay:1120ms"></span>
+          <span style="height:35%;animation-delay:1200ms"></span>
+          <span style="height:65%;animation-delay:1280ms"></span>
+          <span style="height:85%;animation-delay:1360ms"></span>
+          <span style="height:45%;animation-delay:1440ms"></span>
+          <span style="height:30%;animation-delay:1520ms"></span>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="head">
+          <h2>UI Sound Kit</h2>
+          <span class="count">31 sounds</span>
+        </div>
+        <p>
+          Synthesised from scratch — clicks, confirms, successes, errors, toggles, navigation, notifications,
+          and brand moments (passport-stamp, day-complete, route-complete).
+        </p>
+        <div class="tags">
+          <span class="tag">WAV · 44.1 kHz</span>
+          <span class="tag">Pure stdlib source</span>
+          <span class="tag">8 categories</span>
+          <span class="tag">Browser preview</span>
+        </div>
+        <div class="actions">
+          <span class="btn primary sm">Open player &nbsp;→</span>
+          <span class="btn ghost sm" onclick="event.stopPropagation();event.preventDefault();window.location.href='downloads/visit-bulgaria-sounds.zip'" title="Download all sounds">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────── -->
+<!-- Downloads                                                    -->
+<!-- ─────────────────────────────────────────────────────────── -->
+<section class="downloads" id="downloads">
+  <h3>Downloads</h3>
+  <p class="sub">Grab everything, or just the platform you need. Each bundle includes the asset tree and a README.</p>
+
+  <div class="dl-grid">
+    <div class="dl-card">
+      <div class="top"><h4>Everything · Icons + Sounds</h4><span class="ext">ZIP</span></div>
+      <p>Complete brand kit. All icon platforms plus the full UI sound library.</p>
+      <div class="foot">
+        <span class="size-m">2.8 MB · 78 files</span>
+        <a class="dl" href="downloads/visit-bulgaria-brand-kit.zip" download>Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="dl-card">
+      <div class="top"><h4>All icons</h4><span class="ext">ZIP</span></div>
+      <p>Master PNGs + iOS + Android + Web. Everything in <code>icons/</code>.</p>
+      <div class="foot">
+        <span class="size-m">2.1 MB · 43 files</span>
+        <a class="dl" href="downloads/visit-bulgaria-icons.zip" download>Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="dl-card">
+      <div class="top"><h4>iOS only</h4><span class="ext">ZIP</span></div>
+      <p>Drop-in Xcode <code>AppIcon.appiconset/</code> — light, dark, tinted.</p>
+      <div class="foot">
+        <span class="size-m">461 KB</span>
+        <a class="dl" href="downloads/visit-bulgaria-icons-ios.zip" download>Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="dl-card">
+      <div class="top"><h4>Android only</h4><span class="ext">ZIP</span></div>
+      <p>Drop-in <code>res/mipmap-*</code> — 5 densities + adaptive layers + Play Store.</p>
+      <div class="foot">
+        <span class="size-m">255 KB</span>
+        <a class="dl" href="downloads/visit-bulgaria-icons-android.zip" download>Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="dl-card">
+      <div class="top"><h4>Web only</h4><span class="ext">ZIP</span></div>
+      <p>Favicons, PWA, Apple touch, Windows tile, OG card, manifest.</p>
+      <div class="foot">
+        <span class="size-m">396 KB · 15 files</span>
+        <a class="dl" href="downloads/visit-bulgaria-icons-web.zip" download>Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="dl-card">
+      <div class="top"><h4>Sounds only</h4><span class="ext">ZIP</span></div>
+      <p>31 WAV files plus <code>generate.py</code> source and docs.</p>
+      <div class="foot">
+        <span class="size-m">653 KB · 34 files</span>
+        <a class="dl" href="downloads/visit-bulgaria-sounds.zip" download>Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────── -->
+<!-- What's inside                                                -->
+<!-- ─────────────────────────────────────────────────────────── -->
+<section class="inside">
+  <h3 style="font-size:22px;margin:0 0 24px">What’s inside</h3>
+  <div class="inside-grid">
+
+    <div class="inside-card">
+      <h4>Icon system</h4>
+      <ul>
+        <li><b>Master</b> — 1024 primary (white rose on teal), alt (brand-faithful), transparent rose layers</li>
+        <li><b>iOS</b> — <code>AppIcon.appiconset/</code> with light + dark + tinted (iOS 18+)</li>
+        <li><b>Android</b> — adaptive foreground + background + monochrome, legacy densities, Play Store 512</li>
+        <li><b>Web</b> — favicon bundle, Apple touch, PWA 192 / 512 + maskable, Windows tile, 1200×630 OG card, <code>site.webmanifest</code></li>
+        <li><b>Source</b> — <code>brand-bar_icon.svg</code> + deterministic rebuild via <code>build_icons.py</code></li>
+      </ul>
+    </div>
+
+    <div class="inside-card">
+      <h4>UI sound kit</h4>
+      <ul>
+        <li><b>Clicks</b> — soft, sharp, deep, tick (every button tap)</li>
+        <li><b>Confirms + Successes</b> — pop, chime, soft-tap, arpeggio, login-success</li>
+        <li><b>Errors + Warnings</b> — minor, buzz, delete-thud, delete-sharp</li>
+        <li><b>Toggles + Navigation</b> — on/off, select/deselect, swoosh, swipe, back, refresh</li>
+        <li><b>Notifications + Brand</b> — gentle, message, alert, passport-stamp, day-complete, route-complete</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────── -->
+<!-- How to use                                                   -->
+<!-- ─────────────────────────────────────────────────────────── -->
+<section class="how">
+  <h3 style="font-size:22px;margin:0 0 8px">How to use</h3>
+  <p style="margin:0 0 24px;color:var(--muted);font-size:14px">Paste-in integration for the three most common setups.</p>
+
+  <div class="how-grid">
+
+    <div class="how-card">
+      <div class="num">1</div>
+      <h5>iOS · Xcode</h5>
+      <p>Replace your asset catalog’s <code>AppIcon.appiconset/</code> with the one in the zip. Single-source 1024 — Xcode 14+ generates every size.</p>
+      <code>cp -R ios/AppIcon.appiconset/ &lt;App&gt;/Assets.xcassets/AppIcon.appiconset/</code>
+    </div>
+
+    <div class="how-card">
+      <div class="num">2</div>
+      <h5>Android · Studio</h5>
+      <p>Copy <code>mipmap-*</code> into <code>app/src/main/res/</code>. Themed icon is wired automatically via the <code>anydpi-v26</code> manifest.</p>
+      <code>cp -R android/mipmap-* app/src/main/res/</code>
+    </div>
+
+    <div class="how-card">
+      <div class="num">3</div>
+      <h5>Web · &lt;head&gt;</h5>
+      <p>Drop <code>web/</code> contents at your site root and paste the <code>&lt;head&gt;</code> snippet from <code>web/usage.html</code>.</p>
+      <code>cp -R web/* &lt;site-root&gt;/</code>
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>
+      Visit Bulgaria · Brand Kit &nbsp;·&nbsp; Licensed exclusively for Visit Bulgaria properties.
+    </div>
+    <div>
+      <a href="icons/index.html">Icons docs</a> &nbsp;·&nbsp;
+      <a href="sounds/index.html">Sounds docs</a> &nbsp;·&nbsp;
+      <a href="#downloads">Downloads</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
