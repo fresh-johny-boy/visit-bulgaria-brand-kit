@@ -69,6 +69,15 @@ nav.top a.cta{
   box-shadow:0 4px 12px -4px var(--teal);
 }
 nav.top a.cta:hover{background:var(--teal-mid)}
+button.sfx-toggle{
+  margin-left:4px;width:34px;height:34px;border-radius:8px;border:1px solid var(--line);
+  background:#fff;color:var(--ink-2);cursor:pointer;padding:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .15s,color .15s,border-color .15s;
+}
+button.sfx-toggle:hover{background:rgba(0,79,70,.06);border-color:var(--teal);color:var(--teal)}
+button.sfx-toggle svg{width:16px;height:16px}
+button.sfx-toggle[aria-pressed="false"]{color:var(--muted-2)}
 
 /* ------------------------------------------------------------------ */
 /* Hero                                                                */
@@ -436,6 +445,7 @@ footer a:hover{text-decoration:underline}
     <li><a href="#figma">Figma</a></li>
     <li><a href="#downloads">Downloads</a></li>
     <li><a href="downloads/visit-bulgaria-brand-kit.zip" class="cta" download>Download all</a></li>
+    <li><button class="sfx-toggle" id="sfxToggle" aria-pressed="true" title="Toggle UI sounds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></li>
   </ul>
 </nav>
 
@@ -452,7 +462,7 @@ footer a:hover{text-decoration:underline}
     <a class="btn primary" href="downloads/visit-bulgaria-brand-kit.zip" download>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download everything
-      <span class="size">10.5 MB · ZIP</span>
+      <span class="size">21.7 MB · ZIP</span>
     </a>
     <a class="btn ghost" href="#kits">Browse the kits</a>
   </div>
@@ -690,8 +700,8 @@ footer a:hover{text-decoration:underline}
             <span class="p-tag">Sounds</span>
             <span class="p-tag">Screenshots</span>
           </td>
-          <td class="num">10.5 MB</td>
-          <td class="num">86</td>
+          <td class="num">21.7 MB</td>
+          <td class="num">93</td>
           <td class="desc">Everything in one archive.</td>
           <td class="action">
             <a href="downloads/visit-bulgaria-brand-kit.zip" download class="dl-btn">
@@ -800,9 +810,9 @@ footer a:hover{text-decoration:underline}
           <td class="plat">
             <span class="p-tag">Screenshots</span>
           </td>
-          <td class="num">7.8 MB</td>
-          <td class="num">7</td>
-          <td class="desc">Seven native-3× Mobile-app screens (1179 × 2556) — source input for App Store + Play Store slide generator.</td>
+          <td class="num">18.9 MB</td>
+          <td class="num">14</td>
+          <td class="desc">Seven source screens (1179 × 2556, native 3×) + seven composed App Store slides (1320 × 2868).</td>
           <td class="action">
             <a href="downloads/visit-bulgaria-screenshots.zip" download class="dl-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -867,6 +877,94 @@ footer a:hover{text-decoration:underline}
     query = search.value.trim().toLowerCase();
     apply();
   });
+})();
+</script>
+
+<script>
+/* -------------------------------------------------------------------
+   UI sound engine — wires the brand-kit's own sound library into the
+   landing-page interactions. Pure preview / eat-your-own-dog-food.
+   Respects user preference (localStorage) and prefers-reduced-motion.
+   ------------------------------------------------------------------- */
+(function(){
+  const STORE_KEY = 'vb-sfx-enabled';
+  const files = {
+    nav:      'sounds/click-soft.wav',
+    filter:   'sounds/click-tick.wav',
+    card:     'sounds/click-sharp.wav',
+    confirm:  'sounds/confirm-pop.wav',
+    download: 'sounds/passport-stamp.wav',
+    on:       'sounds/toggle-on.wav',
+    off:      'sounds/toggle-off.wav',
+  };
+  const cache = {};
+  function prime(k){
+    if (cache[k]) return cache[k];
+    const a = new Audio(files[k]);
+    a.preload = 'auto';
+    a.volume = k === 'download' ? 0.55 : 0.4;
+    cache[k] = a;
+    return a;
+  }
+  Object.keys(files).forEach(prime);
+
+  const toggle = document.getElementById('sfxToggle');
+  const stored = localStorage.getItem(STORE_KEY);
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let enabled = stored === null ? !reducedMotion : stored === '1';
+  syncToggleUI();
+
+  function syncToggleUI(){
+    toggle.setAttribute('aria-pressed', String(enabled));
+    toggle.title = enabled ? 'Mute UI sounds' : 'Enable UI sounds';
+  }
+
+  function play(k){
+    if (!enabled) return;
+    const a = cache[k]; if (!a) return;
+    try { a.currentTime = 0; a.play().catch(()=>{}); } catch(_){}
+  }
+
+  toggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    enabled = !enabled;
+    localStorage.setItem(STORE_KEY, enabled ? '1' : '0');
+    syncToggleUI();
+    // Play the toggle sound *unconditionally* so the user hears the state change
+    const a = cache[enabled ? 'on' : 'off'];
+    try { a.currentTime = 0; a.play().catch(()=>{}); } catch(_){}
+  });
+
+  function wire(selector, kind){
+    document.querySelectorAll(selector).forEach(el => {
+      el.addEventListener('click', () => play(kind));
+    });
+  }
+
+  // Top nav links (excluding the sound toggle itself)
+  wire('nav.top a:not(.cta)', 'nav');
+  // Primary nav CTA (Download all) → download sound
+  wire('nav.top a.cta', 'download');
+  // Kit cards
+  wire('.kit', 'card');
+  // Figma cards
+  wire('.figma-card', 'nav');
+  // Filter pills in the downloads table
+  wire('.filters .f', 'filter');
+  // Any download button in the downloads table
+  wire('.dl-btn', 'download');
+  // Hero CTA buttons
+  wire('.hero-cta .btn.primary', 'download');
+  wire('.hero-cta .btn.ghost', 'nav');
+  // Search input — soft tick on each keystroke (rate-limited)
+  const search = document.getElementById('dlSearch');
+  if (search){
+    let last = 0;
+    search.addEventListener('input', () => {
+      const now = performance.now();
+      if (now - last > 110){ play('filter'); last = now; }
+    });
+  }
 })();
 </script>
 

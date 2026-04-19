@@ -179,6 +179,60 @@ section > p.desc{margin:0 0 24px;color:var(--ink-2);max-width:720px;font-size:14
 .screen .foot a svg{width:12px;height:12px}
 
 /* ------------------------------------------------------------------
+   Final composed slide cards — no stage, the slide IS the visual
+   ------------------------------------------------------------------ */
+.final-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+@media (max-width:1100px){.final-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.final-grid{grid-template-columns:1fr}}
+.final{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;
+  overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;
+}
+.final:hover{transform:translateY(-3px);box-shadow:0 20px 40px -18px rgba(20,32,29,.26)}
+.final .slide-img{
+  width:100%;aspect-ratio:1320/2868;display:block;
+  background:#0b1a17;object-fit:cover;
+}
+.final .meta-row{padding:16px 20px 18px;display:flex;flex-direction:column;gap:8px}
+.final .num{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;letter-spacing:.1em;color:var(--teal);text-transform:uppercase}
+.final .name{font-size:15px;font-weight:700;margin:0;letter-spacing:-.005em;color:var(--ink)}
+.final .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:8px;border-top:1px solid var(--line)}
+.final .foot code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;color:var(--muted)}
+.final .foot a{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;
+  background:var(--teal);color:#fff;font-size:11.5px;font-weight:600;
+  text-decoration:none;transition:background .15s,transform .12s;
+}
+.final .foot a:hover{background:var(--teal-ui);transform:translateY(-1px)}
+.final .foot a svg{width:12px;height:12px}
+
+/* ------------------------------------------------------------------
+   Flow diagram — inputs → generator → outputs
+   ------------------------------------------------------------------ */
+.flow{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:stretch;
+  margin:0 0 28px;
+}
+.flow .node{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px;
+  display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow-sm);
+}
+.flow .node .k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);font-weight:700}
+.flow .node h6{margin:0;font-size:15px;font-weight:700;letter-spacing:-.005em}
+.flow .node p{margin:2px 0 0;font-size:12px;color:var(--muted);line-height:1.45}
+.flow .node.gen{background:linear-gradient(180deg,var(--teal),var(--teal-dark));color:#fff;border-color:transparent}
+.flow .node.gen .k{color:rgba(255,255,255,.7)}
+.flow .node.gen p{color:rgba(255,255,255,.82)}
+.flow .arrow{
+  align-self:center;color:var(--muted-2);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:16px;font-weight:700;
+}
+@media (max-width:860px){
+  .flow{grid-template-columns:1fr;gap:8px}
+  .flow .arrow{transform:rotate(90deg);padding:4px 0}
+}
+
+/* ------------------------------------------------------------------
    Size / export table
    ------------------------------------------------------------------ */
 .sizes{
@@ -254,10 +308,11 @@ footer.foot a:hover{text-decoration:underline}
   <ul>
     <li class="label">Overview</li>
     <li><a href="#overview">Summary</a></li>
+    <li><a href="#final">Final slides</a></li>
     <li><a href="#canvases">Canvas sizes</a></li>
 
-    <li class="label">Source screens</li>
-    <li><a href="#screens">All 7 screens</a></li>
+    <li class="label">Inputs</li>
+    <li><a href="#screens">Source screens</a></li>
 
     <li class="label">Generator</li>
     <li><a href="#how-to">Run the app</a></li>
@@ -321,6 +376,149 @@ footer.foot a:hover{text-decoration:underline}
 </section>
 
 <!-- ============================================================ -->
+<!-- FINAL SLIDES — what you upload to App Store / Play Store    -->
+<!-- ============================================================ -->
+<section id="final">
+  <h2>Final output</h2>
+  <h3>What lands on App Store Connect</h3>
+  <p class="desc">
+    These are the seven App Store + Play Store marketing slides, rendered by the Next.js generator at
+    iPhone 6.9″ master size (1320 × 2868). The generator takes each source screen (below),
+    wraps it in a device frame, branded background, headline, eyebrow, and decorative pins / polaroids,
+    and exports PNGs at every size Apple and Google require.
+  </p>
+
+  <div class="flow">
+    <div class="node">
+      <span class="k">Inputs</span>
+      <h6>7 phone screens</h6>
+      <p>Native-3× Mobile-app captures (1179 × 2556).</p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node gen">
+      <span class="k">Generator</span>
+      <h6>Next.js + html-to-image</h6>
+      <p>One React component per slide composes frame + background + text + accents.</p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node">
+      <span class="k">Outputs</span>
+      <h6>36 final PNGs</h6>
+      <p>7 slides × 4 iPhone sizes + Android + feature graphic.</p>
+    </div>
+  </div>
+
+  <div class="final-grid">
+
+    <div class="final">
+      <img class="slide-img" src="composed/01-hero-discover.png" alt="Slide 1 — Discover Bulgaria" loading="lazy">
+      <div class="meta-row">
+        <span class="num">01 · Hero</span>
+        <h4 class="name">Discover Bulgaria.</h4>
+        <div class="foot">
+          <code>01-hero-discover.png</code>
+          <a href="composed/01-hero-discover.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="final">
+      <img class="slide-img" src="composed/02-country-map.png" alt="Slide 2 — Every city on one map" loading="lazy">
+      <div class="meta-row">
+        <span class="num">02 · Map</span>
+        <h4 class="name">Every city. On one map.</h4>
+        <div class="foot">
+          <code>02-country-map.png</code>
+          <a href="composed/02-country-map.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="final">
+      <img class="slide-img" src="composed/03-nearby.png" alt="Slide 3 — Right around you" loading="lazy">
+      <div class="meta-row">
+        <span class="num">03 · Nearby</span>
+        <h4 class="name">Right around you.</h4>
+        <div class="foot">
+          <code>03-nearby.png</code>
+          <a href="composed/03-nearby.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="final">
+      <img class="slide-img" src="composed/04-plan-day.png" alt="Slide 4 — Day by day" loading="lazy">
+      <div class="meta-row">
+        <span class="num">04 · Plan</span>
+        <h4 class="name">Day by day.</h4>
+        <div class="foot">
+          <code>04-plan-day.png</code>
+          <a href="composed/04-plan-day.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="final">
+      <img class="slide-img" src="composed/05-events.png" alt="Slide 5 — Never miss an event" loading="lazy">
+      <div class="meta-row">
+        <span class="num">05 · Events</span>
+        <h4 class="name">Never miss an event.</h4>
+        <div class="foot">
+          <code>05-events.png</code>
+          <a href="composed/05-events.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="final">
+      <img class="slide-img" src="composed/06-bilingual.png" alt="Slide 6 — In your language" loading="lazy">
+      <div class="meta-row">
+        <span class="num">06 · Language</span>
+        <h4 class="name">In your language.</h4>
+        <div class="foot">
+          <code>06-bilingual.png</code>
+          <a href="composed/06-bilingual.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="final">
+      <img class="slide-img" src="composed/07-start-exploring.png" alt="Slide 7 — Start exploring" loading="lazy">
+      <div class="meta-row">
+        <span class="num">07 · CTA</span>
+        <h4 class="name">Start exploring.</h4>
+        <div class="foot">
+          <code>07-start-exploring.png</code>
+          <a href="composed/07-start-exploring.png" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- CANVAS SIZES                                                 -->
 <!-- ============================================================ -->
 <section id="canvases">
@@ -357,12 +555,13 @@ footer.foot a:hover{text-decoration:underline}
 <!-- SCREENS GALLERY                                              -->
 <!-- ============================================================ -->
 <section id="screens">
-  <h2>Source screens</h2>
-  <h3>All seven, native 3×</h3>
+  <h2>Inputs · source screens</h2>
+  <h3>The seven app screens behind the slides</h3>
   <p class="desc">
-    These are the raw phone screens before the marketing layer is composed on top.
-    Captured from the Mobile-app Figma file (<code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#f7f6f1;padding:1px 6px;border-radius:4px">ngu8u7dzrbq08RIPSedKOC</code>),
-    exported at 3× (393 × 852 → 1179 × 2556) so every thumbnail, icon, and label inside the app stays crisp when rendered at the final slide size.
+    These are the raw Mobile-app screens that feed the generator above — no frame, no background, no headline.
+    Captured from the Mobile-app Figma file (<code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#f7f6f1;padding:1px 6px;border-radius:4px">ngu8u7dzrbq08RIPSedKOC</code>)
+    at native 3× (393 × 852 → 1179 × 2556), so every thumbnail, icon, and label inside the app stays crisp when rendered at the final slide size.
+    Edit the React slide that references one of these files to change what the composed slide looks like.
   </p>
 
   <div class="screen-grid">
