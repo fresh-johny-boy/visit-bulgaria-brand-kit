@@ -181,6 +181,51 @@ section.kits{padding:80px 0 40px}
 .kit .btn.ghost.sm{flex-shrink:0}
 
 /* ------------------------------------------------------------------ */
+/* Figma sources                                                       */
+/* ------------------------------------------------------------------ */
+section.figma{padding:20px 0 20px}
+.figma-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;
+}
+.figma-card{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;
+  text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;
+  transition:border-color .15s,transform .15s,box-shadow .15s;
+  position:relative;
+}
+.figma-card:hover{
+  border-color:var(--teal);transform:translateY(-2px);
+  box-shadow:0 14px 30px -14px rgba(20,32,29,.18);
+}
+.figma-card-head{
+  display:flex;align-items:center;gap:10px;color:var(--muted);
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+}
+.figma-card-head svg:first-of-type{flex-shrink:0}
+.figma-card-head .figma-label{flex:1}
+.figma-card-head .figma-ext{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:24px;height:24px;border-radius:50%;background:#f3f2ee;color:var(--muted);
+  transition:background .15s,color .15s;
+}
+.figma-card:hover .figma-ext{background:var(--teal);color:#fff}
+.figma-card h4{
+  margin:0;font-size:16px;font-weight:700;letter-spacing:-.005em;color:var(--ink);
+}
+.figma-card p{
+  margin:0;font-size:13px;color:var(--muted);line-height:1.5;flex:1;
+}
+.figma-card p code{
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-2);
+  background:#f7f6f1;padding:1px 6px;border-radius:4px;
+}
+.figma-card .figma-key{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted-2);
+  padding-top:8px;border-top:1px solid var(--line);margin-top:2px;
+  letter-spacing:.02em;
+}
+
+/* ------------------------------------------------------------------ */
 /* Downloads — filterable table                                        */
 /* ------------------------------------------------------------------ */
 section.downloads{padding:40px 0 80px}
@@ -368,6 +413,7 @@ footer a:hover{text-decoration:underline}
   <ul>
     <li><a href="icons/index.html">Icons</a></li>
     <li><a href="sounds/index.html">Sounds</a></li>
+    <li><a href="#figma">Figma</a></li>
     <li><a href="#downloads">Downloads</a></li>
     <li><a href="downloads/visit-bulgaria-brand-kit.zip" class="cta" download>Download all</a></li>
   </ul>
@@ -473,6 +519,70 @@ footer a:hover{text-decoration:underline}
           </span>
         </div>
       </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────── -->
+<!-- Figma sources                                                -->
+<!-- ─────────────────────────────────────────────────────────── -->
+<section class="figma" id="figma">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 20px">
+    <div>
+      <h3 style="font-size:22px;margin:0 0 6px;font-weight:700;letter-spacing:-.01em">Design sources</h3>
+      <p style="margin:0;color:var(--muted);font-size:14px">Canonical Figma files — open in the browser or the desktop app.</p>
+    </div>
+    <a href="https://www.figma.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-2);font-size:12.5px;font-weight:600;text-decoration:none">
+      <svg width="14" height="14" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z" fill="#1ABCFE"/>
+        <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0Z" fill="#0ACF83"/>
+        <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19Z" fill="#FF7262"/>
+        <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z" fill="#F24E1E"/>
+        <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z" fill="#A259FF"/>
+      </svg>
+      figma.com
+    </a>
+  </div>
+
+  <div class="figma-grid">
+
+    <a class="figma-card" href="https://www.figma.com/design/ngu8u7dzrbq08RIPSedKOC/Mobile-app" target="_blank" rel="noopener">
+      <div class="figma-card-head">
+        <svg width="18" height="18" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z" fill="#1ABCFE"/>
+          <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0Z" fill="#0ACF83"/>
+          <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19Z" fill="#FF7262"/>
+          <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z" fill="#F24E1E"/>
+          <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z" fill="#A259FF"/>
+        </svg>
+        <span class="figma-label">Mobile app</span>
+        <span class="figma-ext">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </span>
+      </div>
+      <h4>Visit Bulgaria — Mobile app</h4>
+      <p>4 pages, 83 frames. iOS-first screen designs. Source of truth for mobile-app surfaces.</p>
+      <code class="figma-key">ngu8u7dzrbq08RIPSedKOC</code>
+    </a>
+
+    <a class="figma-card" href="https://www.figma.com/design/ngu8u7dzrbq08RIPSedKOC/Mobile-app?node-id=12-839" target="_blank" rel="noopener">
+      <div class="figma-card-head">
+        <svg width="18" height="18" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z" fill="#1ABCFE"/>
+          <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0Z" fill="#0ACF83"/>
+          <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19Z" fill="#FF7262"/>
+          <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z" fill="#F24E1E"/>
+          <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z" fill="#A259FF"/>
+        </svg>
+        <span class="figma-label">Mobile app · starting frame</span>
+        <span class="figma-ext">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </span>
+      </div>
+      <h4>Mobile app — Splash / entry point</h4>
+      <p>Deep-link to the canonical starting frame for the mobile-app flow (<code>node 12:839</code>).</p>
+      <code class="figma-key">#node-id=12-839</code>
     </a>
 
   </div>
